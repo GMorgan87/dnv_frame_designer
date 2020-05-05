@@ -7,6 +7,12 @@ class AppContainer extends Component {
       super(props)
     
       this.state = {
+        projectDetails: {
+            title: '',
+            docNo: '',
+            rev: '',
+            date: ''
+          },
          frameDims: {
              l: 0,
              w: 0,
@@ -17,15 +23,11 @@ class AppContainer extends Component {
       this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-        handleSubmit(frame){
+        handleSubmit(frame, project){
             this.setState({
-                frameDims: {
-                    l: frame.l,
-                    w: frame.w,
-                    h: frame.h,
-                    m: frame.m
+                frameDims: frame,
+                projectDetails: project
                 }
-            }
             )
         } 
     
