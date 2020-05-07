@@ -15,7 +15,9 @@ class InputForm extends Component {
              l: 0,
              w: 0,
              h: 0,
-             m: 0
+             m: 0,
+             grade: 355,
+             slingAngle: 30
          }
       }
       this.handleChangeFrame = this.handleChangeFrame.bind(this);
@@ -62,8 +64,15 @@ class InputForm extends Component {
                 <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
             <label>MGW:</label>
                 <input name='m' type='number' min='0' onChange={this.handleChangeFrame}/>
+            <label>Steel Grade (SXXX)</label>
+                <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
+            <label>Sling Angle:</label>
+                <select name='slingAngle' onChange={this.handleChangeFrame}>
+                  <option value='30'>30</option>
+                  <option value='45'>45</option>
+                 </select>
                 <br/>
-            <button>Submit</button>
+            <button>Calculate</button>
         </form>
       </div>
     )
