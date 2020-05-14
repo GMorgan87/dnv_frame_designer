@@ -64,6 +64,7 @@ class InputForm extends Component {
                 <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
             <label>MGW:</label>
                 <input name='m' type='number' min='0' onChange={this.handleChangeFrame}/>
+                <br/>
             <label>Steel Grade (SXXX)</label>
                 <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
             <label>Sling Angle:</label>
