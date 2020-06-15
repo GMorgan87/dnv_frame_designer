@@ -16,6 +16,7 @@ class InputForm extends Component {
              w: 0,
              h: 0,
              m: 0,
+             flpCentres: 0,
              grade: 355,
              slingAngle: 30
          }
@@ -62,6 +63,8 @@ class InputForm extends Component {
                 <input name='w' type='number' min='0' onChange={this.handleChangeFrame}/>
             <label>Height:</label>
                 <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
+            <label>Fork Lift Pocket Centres</label>
+                <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
             <label>MGW:</label>
                 <input name='m' type='number' min='0' onChange={this.handleChangeFrame}/>
                 <br/>
