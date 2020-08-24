@@ -1,0 +1,48 @@
+.inputform {
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  .subform {
+    border: 1px solid black;
+    border-radius: 1vw;
+    margin: 2vw 0;
+    padding: 1vh 2vw 1vh;
+  }
+
+  h3 {
+    margin: -2.5vh auto 0;
+    background: white;
+    padding: 0 0.5vw;
+    width: 17vw;
+    text-align: center
+}
+
+  .calc-button {
+    width: 100%;
+    margin: 0;
+    padding: 1vw 0;
+    font-size: 1.25em;
+    border-radius: 1vw;
+  }
+
+  .user-input {
+    margin: 1vh;
+    align-content: center;
+
+  }
+
+  .user-input input {
+    margin: 0 2vw 0 0.5vw;
+  }
+
+  .title-input {
+    width: 50%;
+  }
+
+
+  .rev-input {
+    width: 3vw;
+  }
+
+  

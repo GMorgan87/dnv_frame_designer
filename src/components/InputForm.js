@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../InputForm.css'
 
 class InputForm extends Component {
     constructor(props) {
@@ -48,35 +49,59 @@ class InputForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit = {this.submit}>
-            <p>Input Project Details</p>
+        <form onSubmit = {this.submit} className='inputform'>
+          <div className='subform'>
+            <h3>Project Details</h3>
+            <div className='user-input'>
+            <label>Client:</label>
+                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject}/>
+            </div>
+            <div className='user-input'>
             <label>Project Title:</label>
-                <input name='title' type='text' onChange={this.handleChangeProject}/>
+                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject}/>
+            </div>
+            <div className='user-input'>
             <label>Document No.:</label>
                 <input name='docNo' type='text' onChange={this.handleChangeProject}/>
-            <label>Revision</label>
-                <input name='rev' type='text' onChange={this.handleChangeProject}/>
-            <p>Input Frame Details</p>
-            <label>Length:</label>
+            <label>Revision:</label>
+                <input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject}/>
+            </div>
+          </div>
+          <div className='subform'>
+            <h3>Frame Details</h3>
+            <div className='user-input'>
+              <label>Length:</label>
                 <input name='l' type='number' min='0' onChange={this.handleChangeFrame}/>
-            <label>Width:</label>
+            </div>
+            <div className='user-input'>
+              <label>Width:</label>
                 <input name='w' type='number' min='0' onChange={this.handleChangeFrame}/>
-            <label>Height:</label>
-                <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
-            <label>Fork Lift Pocket Centres</label>
+            </div>
+            <div className='user-input'>
+              <label>Height:</label>
+                  <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
+            </div>
+            <div className='user-input'>
+              <label>Fork Lift Pocket Centres</label>
                 <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
-            <label>MGW:</label>
+            </div>
+            <div className='user-input'>
+              <label>MGW:</label>
                 <input name='m' type='number' min='0' onChange={this.handleChangeFrame}/>
-                <br/>
-            <label>Steel Grade (SXXX)</label>
+            </div>
+            <div className='user-input'>
+              <label>Steel Grade (SXXX)</label>
                 <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
-            <label>Sling Angle:</label>
+            </div>
+            <div className='user-input'>
+              <label>Sling Angle:</label>
                 <select name='slingAngle' onChange={this.handleChangeFrame}>
                   <option value='30'>30</option>
                   <option value='45'>45</option>
                  </select>
-                <br/>
-            <button>Calculate</button>
+          </div>       
+          </div>
+            <button className='calc-button' type='submit'>Calculate</button>
         </form>
       </div>
     )

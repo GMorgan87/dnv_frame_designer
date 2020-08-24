@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
+import Calculator from '../Calculator'
 
 class AppContainer extends Component {
 
@@ -23,8 +24,7 @@ class AppContainer extends Component {
          }
       }
       this.handleSubmit = this.handleSubmit.bind(this)
-      this.impactLoadMinI = this.impactLoadMinI.bind(this)
-      this.impactLoadMinZ = this.impactLoadMinZ.bind(this)
+      
     }
 
       handleSubmit(frame, project){
@@ -38,29 +38,13 @@ class AppContainer extends Component {
            )
       } 
 
-      impactLoadMinZ(length, mass, grade){
-        return ((5 * length * mass) / (136 * grade))/100
-      }
-
-      impactLoadMinI(length, mass, grade){
-        return (((length ** 3) * mass) / (133824000 * grade))/1000
-      }
-
-      impactLoadMinZTop(length, mass, grade){
-        return (3 * length * mass) / (136 * grade)
-      }
-
-      impactLoadMinITop(length, mass, grade){
-        return ((length ** 3) * mass) / (223040000 * grade)
-      }
-      
 
       checkBaseSideRailImpactLoads(){
-        const minI = Math.ceil(this.impactLoadMinI(this.state.frameDims.l, this.state.frameDims.m, this.state.frameDims.grade))
-        const minZ = Math.ceil(this.impactLoadMinZ(this.state.frameDims.l, this.state.frameDims.m, this.state.frameDims.grade))
+        const minI = Math.ceil(Calculator.impactLoadMinI(this.state.frameDims.l, this.state.frameDims.m)/10000)
+        const minZ = Math.ceil(Calculator.impactLoadMinZ(this.state.frameDims.l, this.state.frameDims.m, this.state.frameDims.grade)/1000)
         console.log("minI", minI)
         console.log("minZ", minZ)
-        fetch(`http://resteel.herokuapp.com/api/sections/rhs/${minI}/${minZ}`)
+        fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)
         .then(res => res.json())
         .then(data => console.log(data))
       }
