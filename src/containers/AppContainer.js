@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
 import Calculator from '../Calculator'
+import ProtoFrame from '../ProtoFrame'
 
 class AppContainer extends Component {
 
@@ -15,33 +16,39 @@ class AppContainer extends Component {
             date: ''
           },
          frameDims: {
-             l: 0,
-             w: 0,
-             h: 0,
-             m: 0,
+             length: 0,
+             width: 0,
+             height: 0,
+             mgw: 0,
              grade: 355,
              slingAngle: 30
          }
       }
       this.handleSubmit = this.handleSubmit.bind(this)
-      
     }
 
+
       handleSubmit(frame, project){
+        
         const today = new Date();
         const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         project.date = date
         this.setState({
             frameDims: frame,
             projectDetails: project
-            },function(){this.checkBaseSideRailImpactLoads()}
+            },function(){
+              // Calculator.checkBaseSideRailImpactLoads()
+              let protoFrame = new ProtoFrame(this.state.frameDims)
+              console.log(protoFrame)
+              console.log(protoFrame.getProtoFrame())
+            }
            )
       } 
 
 
       checkBaseSideRailImpactLoads(){
-        const minI = Math.ceil(Calculator.impactLoadMinI(this.state.frameDims.l, this.state.frameDims.m)/10000)
-        const minZ = Math.ceil(Calculator.impactLoadMinZ(this.state.frameDims.l, this.state.frameDims.m, this.state.frameDims.grade)/1000)
+        const minI = Math.ceil(Calculator.impactLoadMinI(this.state.frameDims.length, this.state.frameDims.mgw)/10000)
+        const minZ = Math.ceil(Calculator.impactLoadMinZ(this.state.frameDims.length, this.state.frameDims.mgw, this.state.frameDims.grade)/1000)
         console.log("minI", minI)
         console.log("minZ", minZ)
         fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)

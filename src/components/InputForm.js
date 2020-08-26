@@ -13,10 +13,10 @@ class InputForm extends Component {
             date: ''
           },
          frameDims: {
-             l: 0,
-             w: 0,
-             h: 0,
-             m: 0,
+             length: 0,
+             width: 0,
+             height: 0,
+             mgw: 0,
              flpCentres: 0,
              grade: 355,
              slingAngle: 30
@@ -71,15 +71,15 @@ class InputForm extends Component {
             <h3>Frame Details</h3>
             <div className='user-input'>
               <label>Length:</label>
-                <input name='l' type='number' min='0' onChange={this.handleChangeFrame}/>
+                <input name='length' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
               <label>Width:</label>
-                <input name='w' type='number' min='0' onChange={this.handleChangeFrame}/>
+                <input name='width' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
               <label>Height:</label>
-                  <input name='h' type='number' min='0' onChange={this.handleChangeFrame}/>
+                  <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
               <label>Fork Lift Pocket Centres</label>
@@ -87,7 +87,7 @@ class InputForm extends Component {
             </div>
             <div className='user-input'>
               <label>MGW:</label>
-                <input name='m' type='number' min='0' onChange={this.handleChangeFrame}/>
+                <input name='mgw' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
               <label>Steel Grade (SXXX)</label>
