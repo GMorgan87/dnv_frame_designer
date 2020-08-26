@@ -11,39 +11,65 @@ class ProtoFrame{
         this.slingAngle = frameDims.slingAngle
     }
 
-
-    getProtoFrame(){
+    async getProtoFrame(){
         let frame = {}
-        this.getBaseSideRail(this.length, this.mgw, this.grade)
+        await this.getBaseSideRail(this.length, this.mgw, this.grade).then(data => frame.bSideRail = data)
+        await this.getBaseEndRail(this.width, this.mgw, this.grade).then(data => frame.baseEndRail = data)
+        await this.getTopEndRail(this.width, this.mgw, this.grade).then(data => frame.topEndRail = data)
+        console.log('frame: ', frame)
         return frame
     }
 
+
+    baseSideRailDuringSlingLiftMinI(length, mgw){
+        console.log('sling lift minI: ',Math.ceil(((981 * length**2 * mgw)/20992000)/10000))
+        return Math.ceil(((981 * length**2 * mgw)/20992000)/10000)
+    }
+
+
+    baseSideRailDuringSlingLiftMinZ(length, mgw, grade){
+        console.log('sling lift minZ:' ,Math.ceil(((327 * length * mgw)/(272 * grade))/1000))
+        return Math.ceil(((327 * length * mgw)/(272 * grade))/1000)
+    }
+
+
     getBaseSideRailMinI(length, mgw){
-        return ImpactLoads.minI(length, mgw)
+        return this.baseSideRailDuringSlingLiftMinI(length, mgw)
     }
 
     getBaseSideRailMinZ(length,mgw,grade){
-        return ImpactLoads.minZ(length, mgw, grade)
+        return this.baseSideRailDuringSlingLiftMinZ(length, mgw, grade)
     }
 
-    fetchMember(minI, minZ){
-        let member = {}
-        fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)
+    async fetchMemberY(minI, minZ){
+        let result = {}
+        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)
         .then(res => res.json())
-        .then(data => member = data)
-        return member
+        .then(data => {result = data})
+        return result
+    }
+
+    async fetchMember(minIx, minZx, minIy, minZy){
+        let result = {}
+        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}`)
+        .then(res => res.json())
+        .then(data => {result = data})
+        return result
     }
 
     getBaseSideRail(length, mgw, grade){
-        let minI = this.getBaseSideRailMinI(length, mgw)
-        let minZ = this.getBaseSideRailMinZ(length, mgw, grade)
-        let member = this.fetchMember(minI, minZ)
-        return member
+        let minIy = ImpactLoads.minI(length, mgw)
+        let minZy = ImpactLoads.minZ(length, mgw, grade)
+        let minIx = this.getBaseSideRailMinI(length, mgw)
+        let minZx = this.getBaseSideRailMinZ(length,mgw,grade)
+        return this.fetchMember(minIx, minZx, minIy, minZy)
     }
     
 
-    getBaseEndRail(){
-
+    getBaseEndRail(width, mgw, grade){
+        let minI =  ImpactLoads.minI(width, mgw)
+        let minZ = ImpactLoads.minZ(width, mgw, grade)
+        return this.fetchMemberY(minI, minZ)
     }
 
     getForkLiftPocket(){
@@ -58,8 +84,10 @@ class ProtoFrame{
 
     }
 
-    getTopEndRail(){
-
+    getTopEndRail(width, mgw, grade){
+        let minI = ImpactLoads.minITop(width, mgw)
+        let minZ = ImpactLoads.minZTop(width, mgw, grade)
+        return this.fetchMemberY(minI, minZ)
     }
 }
 

@@ -27,9 +27,7 @@ class AppContainer extends Component {
       this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-
       handleSubmit(frame, project){
-        
         const today = new Date();
         const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         project.date = date
@@ -37,9 +35,7 @@ class AppContainer extends Component {
             frameDims: frame,
             projectDetails: project
             },function(){
-              // Calculator.checkBaseSideRailImpactLoads()
               let protoFrame = new ProtoFrame(this.state.frameDims)
-              console.log(protoFrame)
               console.log(protoFrame.getProtoFrame())
             }
            )

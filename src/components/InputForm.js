@@ -13,11 +13,11 @@ class InputForm extends Component {
             date: ''
           },
          frameDims: {
-             length: 0,
-             width: 0,
-             height: 0,
-             mgw: 0,
-             flpCentres: 0,
+             length: 5000,
+             width: 2000,
+             height: 2000,
+             mgw: 10000,
+             flpCentres: 2050,
              grade: 355,
              slingAngle: 30
          }
