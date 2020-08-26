@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
-import Calculator from '../Calculator'
 import ProtoFrame from '../ProtoFrame'
+import BeamSelector from '../components/BeamSelector'
 
 class AppContainer extends Component {
 
@@ -36,20 +36,15 @@ class AppContainer extends Component {
             projectDetails: project
             },function(){
               let protoFrame = new ProtoFrame(this.state.frameDims)
-              console.log(protoFrame.getProtoFrame())
+               protoFrame.getProtoFrame().then(data=> this.setState({protoFrame: data}))
             }
            )
       } 
 
-
-      checkBaseSideRailImpactLoads(){
-        const minI = Math.ceil(Calculator.impactLoadMinI(this.state.frameDims.length, this.state.frameDims.mgw)/10000)
-        const minZ = Math.ceil(Calculator.impactLoadMinZ(this.state.frameDims.length, this.state.frameDims.mgw, this.state.frameDims.grade)/1000)
-        console.log("minI", minI)
-        console.log("minZ", minZ)
-        fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)
-        .then(res => res.json())
-        .then(data => console.log(data))
+      renderBeamSelector(){
+        if (this.state.protoFrame){
+        return <BeamSelector protoFrame={this.state.protoFrame}/>
+        }
       }
     
   render() {
@@ -57,6 +52,7 @@ class AppContainer extends Component {
       <div>
           <h2>DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
+        {this.renderBeamSelector()}
       </div>
     )
   }

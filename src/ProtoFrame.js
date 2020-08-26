@@ -13,10 +13,10 @@ class ProtoFrame{
 
     async getProtoFrame(){
         let frame = {}
-        await this.getBaseSideRail(this.length, this.mgw, this.grade).then(data => frame.bSideRail = data)
+        await this.getBaseSideRail(this.length, this.mgw, this.grade).then(data => frame.baseSideRail = data)
         await this.getBaseEndRail(this.width, this.mgw, this.grade).then(data => frame.baseEndRail = data)
         await this.getTopEndRail(this.width, this.mgw, this.grade).then(data => frame.topEndRail = data)
-        console.log('frame: ', frame)
+        // console.log('frame: ', frame)
         return frame
     }
 
@@ -77,7 +77,7 @@ class ProtoFrame{
     }
 
     getCornerPost(){
-
+        
     }
 
     getTopSideRail(){
