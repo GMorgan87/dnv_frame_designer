@@ -16,7 +16,7 @@ class ProtoFrame{
         await this.getBaseSideRail(this.length, this.mgw, this.grade).then(data => frame.baseSideRail = data)
         await this.getBaseEndRail(this.width, this.mgw, this.grade).then(data => frame.baseEndRail = data)
         await this.getTopEndRail(this.width, this.mgw, this.grade).then(data => frame.topEndRail = data)
-        // console.log('frame: ', frame)
+        await this.getCornerPost(this.height, this.mgw, this.grade).then(data => frame.cornerPost = data)
         return frame
     }
 
@@ -41,9 +41,9 @@ class ProtoFrame{
         return this.baseSideRailDuringSlingLiftMinZ(length, mgw, grade)
     }
 
-    async fetchMemberY(minI, minZ){
+    async fetchMemberY(minI, minZ, desc){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minI}/${minZ}`)
+        await fetch(`http://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -52,6 +52,14 @@ class ProtoFrame{
     async fetchMember(minIx, minZx, minIy, minZy){
         let result = {}
         await fetch(`http://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}`)
+        .then(res => res.json())
+        .then(data => {result = data})
+        return result
+    }
+
+    async fetchMemberCornerPost(minI, minZ, desc, csa){
+        let result = {}
+        await fetch(`http://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -69,15 +77,24 @@ class ProtoFrame{
     getBaseEndRail(width, mgw, grade){
         let minI =  ImpactLoads.minI(width, mgw)
         let minZ = ImpactLoads.minZ(width, mgw, grade)
-        return this.fetchMemberY(minI, minZ)
+        return this.fetchMemberY(minI, minZ, 'rhs')
     }
 
     getForkLiftPocket(){
         
     }
 
-    getCornerPost(){
-        
+    cornerPostMinArea(mass, grade){
+        console.log((327*mass)/(34*grade)/100)
+        return Math.ceil((327*mass)/(34*grade)/100)
+    }
+
+    getCornerPost(height, mgw, grade){
+        let minI = ImpactLoads.minI(height, mgw)
+        let minZ = ImpactLoads.minZ(height, mgw, grade)
+        let minA = this.cornerPostMinArea(mgw, grade)
+        console.log("post area: ",minA)
+        return this.fetchMemberCornerPost(minI, minZ, 'shs', minA)
     }
 
     getTopSideRail(){
@@ -87,7 +104,7 @@ class ProtoFrame{
     getTopEndRail(width, mgw, grade){
         let minI = ImpactLoads.minITop(width, mgw)
         let minZ = ImpactLoads.minZTop(width, mgw, grade)
-        return this.fetchMemberY(minI, minZ)
+        return this.fetchMemberY(minI, minZ, 'shs')
     }
 }
 

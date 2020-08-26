@@ -17,6 +17,7 @@ class BeamSelector extends Component {
         <p>Base Side Rail: {this.props.protoFrame.baseSideRail.desc}</p>
         <p>Base End Rail: {this.props.protoFrame.baseEndRail.desc}</p>
         <p>Top End Rail: {this.props.protoFrame.topEndRail.desc}</p>
+        <p>Corner Post: {this.props.protoFrame.cornerPost.desc}</p>
       </div>
     )
   }
