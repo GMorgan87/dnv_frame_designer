@@ -15,10 +15,11 @@ class ProtoFrame{
 
     async getProtoFrame(){
         let frame = {}
-        await this.getBaseSideRail(this.length, this.mgw, this.grade, this.overhang, this.flpCentres).then(data => frame.baseSideRail = data)
-        await this.getBaseEndRail(this.width, this.mgw, this.grade).then(data => frame.baseEndRail = data)
-        await this.getTopEndRail(this.width, this.mgw, this.grade).then(data => frame.topEndRail = data)
-        await this.getCornerPost(this.height, this.mgw, this.grade).then(data => frame.cornerPost = data)
+        await this.getBaseSideRail().then(data => frame.baseSideRail = data)
+        await this.getBaseEndRail().then(data => frame.baseEndRail = data)
+        await this.getTopEndRail().then(data => frame.topEndRail = data)
+        await this.getCornerPost().then(data => frame.cornerPost = data)
+        await this.getForkLiftPocket()
         return frame
     }
 
@@ -46,87 +47,96 @@ class ProtoFrame{
         return result
     }
 
-    baseSideRailDuringSlingLiftMinI(length, mgw){
-        console.log('sling lift minI: ',Math.ceil(((981 * length**2 * mgw)/20992000)/10000))
-        return Math.ceil(((981 * length**2 * mgw)/20992000)/10000)
+    baseSideRailDuringSlingLiftMinI(){
+        return Math.ceil(((981 * this.length**2 * this.mgw)/20992000)/10000)
     }
 
-    baseSideRailDuringSlingLiftMinZ(length, mgw, grade){
-        return Math.ceil(((327 * length * mgw)/(272 * grade))/1000)
+    baseSideRailDuringSlingLiftMinZ(){
+        return Math.ceil(((327 * this.length * this.mgw)/(272 * this.grade))/1000)
     }
 
-    baseSideRailDuringFLPLiftEndsMinI(length, mgw, overhang, flpCentres){
-        console.log('flp lift end minI: ', Math.ceil(((981*mgw*overhang*((-flpCentres)**3+(6*flpCentres*overhang**2)+(3*overhang**3)))/(4100000*length**2)/10000)))
-        return Math.ceil(((981*mgw*overhang*((-flpCentres)**3+(6*flpCentres*overhang**2)+(3*overhang**3)))/(4100000*length**2))/10000)
+    baseSideRailDuringFLPLiftEndsMinI(){
+        return Math.ceil(((981*this.mgw*this.overhang*((-this.flpCentres)**3+(6*this.flpCentres*this.overhang**2)+(3*this.overhang**3)))/(4100000*this.length**2))/10000)
     }
 
-    baseSideRailDuringFLPLiftEndsMinZ(length, mgw, grade, overhang){
-        return Math.ceil((981*mgw*overhang**2)/(425*grade*length)/1000)
+    baseSideRailDuringFLPLiftEndsMinZ(){
+        return Math.ceil((981*this.mgw*this.overhang**2)/(425*this.grade*this.length)/1000)
     }
 
-    baseSideRailDuringFLPLiftCentreMinI(length, mgw, overhang, flpCentres){
-        console.log('flp lift centre minI: ', Math.ceil(-(((0.0000747713*flpCentres**4*mgw)-(0.000358902*flpCentres**2*mgw*overhang**2))/(length**2))/10000))
-        return Math.ceil(-(((0.0000747713*flpCentres**4*mgw)-(0.000358902*flpCentres**2*mgw*overhang**2))/(length**2))/10000)
+    baseSideRailDuringFLPLiftCentreMinI(){
+        return Math.ceil(-(((0.0000747713*this.flpCentres**4*this.mgw)-(0.000358902*this.flpCentres**2*this.mgw*this.overhang**2))/(this.length**2))/10000)
     }
 
-    baseSideRailDuringFLPLiftCentreMinZ(length, mgw, grade, overhang, flpCentres){
-        return Math.ceil(-(981*mgw*(flpCentres**2-(4*overhang**2)))/(1700*grade*length)/1000)
+    baseSideRailDuringFLPLiftCentreMinZ(){
+        return Math.ceil(-(981*this.mgw*(this.flpCentres**2-(4*this.overhang**2)))/(1700*this.grade*this.length)/1000)
     }
 
-    getBaseSideRailMinI(length, mgw, overhang, flpCentres){
-        let results = [this.baseSideRailDuringSlingLiftMinI(length, mgw),
-                       this.baseSideRailDuringFLPLiftEndsMinI(length, mgw, overhang, flpCentres),
-                       this.baseSideRailDuringFLPLiftCentreMinI(length, mgw, overhang, flpCentres)]
+    pocketLoadSupportingMinZ(){
+        console.log('flp minZ: ', Math.ceil(((981*this.width*this.mgw)/(544*this.grade))/1000))
+        return Math.ceil(((981*this.width*this.mgw)/(544*this.grade))/1000)
+    }
+
+    pocketLoadSupportingMinI(){
+        console.log('flp minI',Math.ceil(((981*this.mgw*this.width**2)/(10496000))/10000))
+        return Math.ceil(((981*this.mgw*this.width**2)/(10496000))/10000)
+    }
+
+    getBaseSideRailMinI(){
+        let results = [this.baseSideRailDuringSlingLiftMinI(),
+                       this.baseSideRailDuringFLPLiftEndsMinI(),
+                       this.baseSideRailDuringFLPLiftCentreMinI()]
         const minI = results.reduce((a,b) => Math.max(a,b))
         return minI
     }
 
-    getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres){
-        let results = [this.baseSideRailDuringSlingLiftMinZ(length, mgw, grade),
-                       this.baseSideRailDuringFLPLiftCentreMinZ(length, mgw, grade, overhang, flpCentres),
-                       this.baseSideRailDuringFLPLiftEndsMinZ(length, mgw, grade, overhang)]
+    getBaseSideRailMinZ(){
+        let results = [this.baseSideRailDuringSlingLiftMinZ(),
+                       this.baseSideRailDuringFLPLiftCentreMinZ(),
+                       this.baseSideRailDuringFLPLiftEndsMinZ()]
         const minZ = results.reduce((a,b) => Math.max(a,b))
         return minZ
     }
 
-    getBaseSideRail(length, mgw, grade, overhang, flpCentres){
-        let minIy = ImpactLoads.minI(length, mgw)
-        let minZy = ImpactLoads.minZ(length, mgw, grade)
-        let minIx = this.getBaseSideRailMinI(length, mgw, overhang, flpCentres)
-        let minZx = this.getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres)
+    getBaseSideRail(){
+        let minIy = ImpactLoads.minI(this.length, this.mgw)
+        let minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
+        let minIx = this.getBaseSideRailMinI()
+        let minZx = this.getBaseSideRailMinZ()
         return this.fetchMember(minIx, minZx, minIy, minZy)
     }
 
-    getBaseEndRail(width, mgw, grade){
-        let minI =  ImpactLoads.minI(width, mgw)
-        let minZ = ImpactLoads.minZ(width, mgw, grade)
+    getBaseEndRail(){
+        let minI =  ImpactLoads.minI(this.width, this.mgw)
+        let minZ = ImpactLoads.minZ(this.width, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'rhs')
     }
 
     getForkLiftPocket(){
-        
+        let minI = this.pocketLoadSupportingMinI()
+        let minZ = this.pocketLoadSupportingMinZ()
+        console.log(`getforkliftPocket fetch values: I:${minI} Z:${minZ}`)
     }
 
-    cornerPostMinArea(mass, grade){
-        return Math.ceil((327*mass)/(34*grade)/100)
+    cornerPostMinArea(){
+        return Math.ceil((327*this.mgw)/(34*this.grade)/100)
     }
 
-    getCornerPost(height, mgw, grade){
-        let minI = ImpactLoads.minI(height, mgw)
-        let minZ = ImpactLoads.minZ(height, mgw, grade)
-        let minA = this.cornerPostMinArea(mgw, grade)
+    getCornerPost(){
+        let minI = ImpactLoads.minI(this.height, this.mgw)
+        let minZ = ImpactLoads.minZ(this.height, this.mgw, this.grade)
+        let minA = this.cornerPostMinArea()
         return this.fetchMemberCornerPost(minI, minZ, 'shs', minA)
     }
 
-    getTopSideRail(length, mgw, grade){
-        let minI = ImpactLoads.minITop(length, mgw)
-        let minZ = ImpactLoads.minZTop(length, mgw, grade)
+    getTopSideRail(){
+        let minI = ImpactLoads.minITop(this.length, this.mgw)
+        let minZ = ImpactLoads.minZTop(this.length, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'shs')
     }
 
-    getTopEndRail(width, mgw, grade){
-        let minI = ImpactLoads.minITop(width, mgw)
-        let minZ = ImpactLoads.minZTop(width, mgw, grade)
+    getTopEndRail(){
+        let minI = ImpactLoads.minITop(this.width, this.mgw)
+        let minZ = ImpactLoads.minZTop(this.width, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'shs')
     }
 }
