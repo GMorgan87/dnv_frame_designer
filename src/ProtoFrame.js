@@ -6,39 +6,20 @@ class ProtoFrame{
         this.length = frameDims.length
         this.width = frameDims.width
         this.height = frameDims.height
+        this.flpCentres = frameDims.flpCentres
         this.mgw = frameDims.mgw
         this.grade = frameDims.grade
         this.slingAngle = frameDims.slingAngle
+        this.overhang = (frameDims.length-frameDims.flpCentres)/2
     }
 
     async getProtoFrame(){
         let frame = {}
-        await this.getBaseSideRail(this.length, this.mgw, this.grade).then(data => frame.baseSideRail = data)
+        await this.getBaseSideRail(this.length, this.mgw, this.grade, this.overhang, this.flpCentres).then(data => frame.baseSideRail = data)
         await this.getBaseEndRail(this.width, this.mgw, this.grade).then(data => frame.baseEndRail = data)
         await this.getTopEndRail(this.width, this.mgw, this.grade).then(data => frame.topEndRail = data)
         await this.getCornerPost(this.height, this.mgw, this.grade).then(data => frame.cornerPost = data)
         return frame
-    }
-
-
-    baseSideRailDuringSlingLiftMinI(length, mgw){
-        console.log('sling lift minI: ',Math.ceil(((981 * length**2 * mgw)/20992000)/10000))
-        return Math.ceil(((981 * length**2 * mgw)/20992000)/10000)
-    }
-
-
-    baseSideRailDuringSlingLiftMinZ(length, mgw, grade){
-        console.log('sling lift minZ:' ,Math.ceil(((327 * length * mgw)/(272 * grade))/1000))
-        return Math.ceil(((327 * length * mgw)/(272 * grade))/1000)
-    }
-
-
-    getBaseSideRailMinI(length, mgw){
-        return this.baseSideRailDuringSlingLiftMinI(length, mgw)
-    }
-
-    getBaseSideRailMinZ(length,mgw,grade){
-        return this.baseSideRailDuringSlingLiftMinZ(length, mgw, grade)
     }
 
     async fetchMemberY(minI, minZ, desc){
@@ -65,11 +46,56 @@ class ProtoFrame{
         return result
     }
 
-    getBaseSideRail(length, mgw, grade){
+    baseSideRailDuringSlingLiftMinI(length, mgw){
+        console.log('sling lift minI: ',Math.ceil(((981 * length**2 * mgw)/20992000)/10000))
+        return Math.ceil(((981 * length**2 * mgw)/20992000)/10000)
+    }
+
+    baseSideRailDuringSlingLiftMinZ(length, mgw, grade){
+        console.log('sling lift minZ:' ,Math.ceil(((327 * length * mgw)/(272 * grade))/1000))
+        return Math.ceil(((327 * length * mgw)/(272 * grade))/1000)
+    }
+
+    // baseSideRailDuringFLPLiftEndsMinI(){
+    //     console.log('side rail end minI: ',)
+    //     return Math.ceil()
+    // }
+
+    baseSideRailDuringFLPLiftEndsMinZ(length, mgw, grade, overhang){
+        console.log('side rail end minZ: ',Math.ceil((981*mgw*overhang**2)/(425*grade*length)/1000))
+        return Math.ceil((981*mgw*overhang**2)/(425*grade*length)/1000)
+    }
+
+    // baseSideRailDuringFLPLiftCentreMinI(){
+    //     console.log('side rail centre minZ: ',)
+    //     return Math.ceil()
+    // }
+
+    baseSideRailDuringFLPLiftCentreMinZ(length, mgw, grade, overhang, flpCentres){
+        return Math.ceil(-(981*mgw*(flpCentres**2-(4*overhang**2)))/(1700*grade*length)/1000)
+    }
+
+
+    getBaseSideRailMinI(length, mgw){
+        let results = [this.baseSideRailDuringSlingLiftMinI(length, mgw)]
+        return results[0]
+    }
+
+    getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres){
+        let results = [this.baseSideRailDuringSlingLiftMinZ(length, mgw, grade),
+                       this.baseSideRailDuringFLPLiftCentreMinZ(length, mgw, grade, overhang, flpCentres),
+                       this.baseSideRailDuringFLPLiftEndsMinZ(length, mgw, grade, overhang)]
+        const minZ = results.reduce((a,b) => Math.max(a,b))
+        return minZ
+    }
+
+    
+
+    getBaseSideRail(length, mgw, grade, overhang, flpCentres){
         let minIy = ImpactLoads.minI(length, mgw)
         let minZy = ImpactLoads.minZ(length, mgw, grade)
         let minIx = this.getBaseSideRailMinI(length, mgw)
-        let minZx = this.getBaseSideRailMinZ(length,mgw,grade)
+        let minZx = this.getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres)
         return this.fetchMember(minIx, minZx, minIy, minZy)
     }
     
@@ -85,7 +111,6 @@ class ProtoFrame{
     }
 
     cornerPostMinArea(mass, grade){
-        console.log((327*mass)/(34*grade)/100)
         return Math.ceil((327*mass)/(34*grade)/100)
     }
 
@@ -93,7 +118,6 @@ class ProtoFrame{
         let minI = ImpactLoads.minI(height, mgw)
         let minZ = ImpactLoads.minZ(height, mgw, grade)
         let minA = this.cornerPostMinArea(mgw, grade)
-        console.log("post area: ",minA)
         return this.fetchMemberCornerPost(minI, minZ, 'shs', minA)
     }
 

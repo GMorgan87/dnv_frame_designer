@@ -17,7 +17,7 @@ class InputForm extends Component {
              width: 0,
              height: 0,
              mgw: 0,
-             flpCentres: 0,
+             flpCentres: 2050,
              grade: 355,
              slingAngle: 30
          }

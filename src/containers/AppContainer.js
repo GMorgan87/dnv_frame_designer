@@ -36,6 +36,7 @@ class AppContainer extends Component {
             projectDetails: project
             },function(){
               let protoFrame = new ProtoFrame(this.state.frameDims)
+              console.log('protoframe created: ', protoFrame)
                protoFrame.getProtoFrame().then(data=> this.setState({protoFrame: data}))
             }
            )
