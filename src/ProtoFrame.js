@@ -3,23 +3,29 @@ import ImpactLoads from './ImpactLoads'
 class ProtoFrame{
 
     constructor(frameDims){
-        this.length = frameDims.length
-        this.width = frameDims.width
-        this.height = frameDims.height
-        this.flpCentres = frameDims.flpCentres
-        this.mgw = frameDims.mgw
-        this.grade = frameDims.grade
-        this.slingAngle = frameDims.slingAngle
+        this.length = parseInt(frameDims.length)
+        this.width = parseInt(frameDims.width)
+        this.height = parseInt(frameDims.height)
+        this.flpCentres = parseInt(frameDims.flpCentres)
+        this.mgw = parseInt(frameDims.mgw)
+        this.grade = parseInt(frameDims.grade)
+        this.slingAngle = parseInt(frameDims.slingAngle)
         this.overhang = (frameDims.length-frameDims.flpCentres)/2
+        this.Rsl = Math.round((3*this.mgw*9.81)/(3*Math.cos((this.slingAngle*(Math.PI/180)))))
+        this.VRsl = Math.round(this.Rsl*Math.cos((this.slingAngle*(Math.PI/180))))
+        this.HRsl = Math.round(this.Rsl*Math.sin((this.slingAngle*(Math.PI/180))))
+        this.padeyeAngle = Math.atan2(this.width,this.length)
+        this.longForce = Math.round(this.HRsl*Math.cos(this.padeyeAngle))
     }
 
     async getProtoFrame(){
         let frame = {}
         await this.getBaseSideRail().then(data => frame.baseSideRail = data)
         await this.getBaseEndRail().then(data => frame.baseEndRail = data)
+        await this.getTopSideRail().then(data => frame.topSideRail = data)
         await this.getTopEndRail().then(data => frame.topEndRail = data)
         await this.getCornerPost().then(data => frame.cornerPost = data)
-        await this.getForkLiftPocket()
+        await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
         return frame
     }
 
@@ -39,9 +45,17 @@ class ProtoFrame{
         return result
     }
 
-    async fetchMemberCornerPost(minI, minZ, desc, csa){
+    async fetchMemberCornerAndTopPost(minI, minZ, desc, csa){
         let result = {}
         await fetch(`http://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
+        .then(res => res.json())
+        .then(data => {result = data})
+        return result
+    }
+
+    async fetchMemberForkloftPocket(minI, minZ){
+        let result = {}
+        await fetch(`http://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -115,6 +129,7 @@ class ProtoFrame{
         let minI = this.pocketLoadSupportingMinI()
         let minZ = this.pocketLoadSupportingMinZ()
         console.log(`getforkliftPocket fetch values: I:${minI} Z:${minZ}`)
+        return this.fetchMemberForkloftPocket(minI, minZ)
     }
 
     cornerPostMinArea(){
@@ -125,13 +140,19 @@ class ProtoFrame{
         let minI = ImpactLoads.minI(this.height, this.mgw)
         let minZ = ImpactLoads.minZ(this.height, this.mgw, this.grade)
         let minA = this.cornerPostMinArea()
-        return this.fetchMemberCornerPost(minI, minZ, 'shs', minA)
+        return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
+    }
+
+    topSideRailMinArea(){
+        console.log((40*this.longForce)/(17*this.grade)/100)
+        return Math.ceil((40*this.longForce)/(17*this.grade)/100)
     }
 
     getTopSideRail(){
         let minI = ImpactLoads.minITop(this.length, this.mgw)
         let minZ = ImpactLoads.minZTop(this.length, this.mgw, this.grade)
-        return this.fetchMemberY(minI, minZ, 'shs')
+        let minA = this.topSideRailMinArea()
+        return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
     }
 
     getTopEndRail(){
