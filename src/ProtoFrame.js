@@ -52,33 +52,33 @@ class ProtoFrame{
     }
 
     baseSideRailDuringSlingLiftMinZ(length, mgw, grade){
-        console.log('sling lift minZ:' ,Math.ceil(((327 * length * mgw)/(272 * grade))/1000))
         return Math.ceil(((327 * length * mgw)/(272 * grade))/1000)
     }
 
-    // baseSideRailDuringFLPLiftEndsMinI(){
-    //     console.log('side rail end minI: ',)
-    //     return Math.ceil()
-    // }
+    baseSideRailDuringFLPLiftEndsMinI(length, mgw, overhang, flpCentres){
+        console.log('flp lift end minI: ', Math.ceil(((981*mgw*overhang*((-flpCentres)**3+(6*flpCentres*overhang**2)+(3*overhang**3)))/(4100000*length**2)/10000)))
+        return Math.ceil(((981*mgw*overhang*((-flpCentres)**3+(6*flpCentres*overhang**2)+(3*overhang**3)))/(4100000*length**2))/10000)
+    }
 
     baseSideRailDuringFLPLiftEndsMinZ(length, mgw, grade, overhang){
-        console.log('side rail end minZ: ',Math.ceil((981*mgw*overhang**2)/(425*grade*length)/1000))
         return Math.ceil((981*mgw*overhang**2)/(425*grade*length)/1000)
     }
 
-    // baseSideRailDuringFLPLiftCentreMinI(){
-    //     console.log('side rail centre minZ: ',)
-    //     return Math.ceil()
-    // }
+    baseSideRailDuringFLPLiftCentreMinI(length, mgw, overhang, flpCentres){
+        console.log('flp lift centre minI: ', Math.ceil(-(((0.0000747713*flpCentres**4*mgw)-(0.000358902*flpCentres**2*mgw*overhang**2))/(length**2))/10000))
+        return Math.ceil(-(((0.0000747713*flpCentres**4*mgw)-(0.000358902*flpCentres**2*mgw*overhang**2))/(length**2))/10000)
+    }
 
     baseSideRailDuringFLPLiftCentreMinZ(length, mgw, grade, overhang, flpCentres){
         return Math.ceil(-(981*mgw*(flpCentres**2-(4*overhang**2)))/(1700*grade*length)/1000)
     }
 
-
-    getBaseSideRailMinI(length, mgw){
-        let results = [this.baseSideRailDuringSlingLiftMinI(length, mgw)]
-        return results[0]
+    getBaseSideRailMinI(length, mgw, overhang, flpCentres){
+        let results = [this.baseSideRailDuringSlingLiftMinI(length, mgw),
+                       this.baseSideRailDuringFLPLiftEndsMinI(length, mgw, overhang, flpCentres),
+                       this.baseSideRailDuringFLPLiftCentreMinI(length, mgw, overhang, flpCentres)]
+        const minI = results.reduce((a,b) => Math.max(a,b))
+        return minI
     }
 
     getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres){
@@ -89,16 +89,13 @@ class ProtoFrame{
         return minZ
     }
 
-    
-
     getBaseSideRail(length, mgw, grade, overhang, flpCentres){
         let minIy = ImpactLoads.minI(length, mgw)
         let minZy = ImpactLoads.minZ(length, mgw, grade)
-        let minIx = this.getBaseSideRailMinI(length, mgw)
+        let minIx = this.getBaseSideRailMinI(length, mgw, overhang, flpCentres)
         let minZx = this.getBaseSideRailMinZ(length, mgw, grade, overhang, flpCentres)
         return this.fetchMember(minIx, minZx, minIy, minZy)
     }
-    
 
     getBaseEndRail(width, mgw, grade){
         let minI =  ImpactLoads.minI(width, mgw)
@@ -121,8 +118,10 @@ class ProtoFrame{
         return this.fetchMemberCornerPost(minI, minZ, 'shs', minA)
     }
 
-    getTopSideRail(){
-
+    getTopSideRail(length, mgw, grade){
+        let minI = ImpactLoads.minITop(length, mgw)
+        let minZ = ImpactLoads.minZTop(length, mgw, grade)
+        return this.fetchMemberY(minI, minZ, 'shs')
     }
 
     getTopEndRail(width, mgw, grade){
