@@ -82,7 +82,7 @@ class InputForm extends Component {
                   <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
-              <label>Fork Lift Pocket Centres</label>
+              <label>Fork Lift Pocket Centres:</label>
                 <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
@@ -90,7 +90,7 @@ class InputForm extends Component {
                 <input name='mgw' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>
-              <label>Steel Grade (SXXX)</label>
+              <label>Steel Grade (SXXX):</label>
                 <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
             </div>
             <div className='user-input'>

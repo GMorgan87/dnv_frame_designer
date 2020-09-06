@@ -51,7 +51,7 @@ class AppContainer extends Component {
   render() {
     return (
       <div>
-          <h2>DNV Frame Designer</h2>
+        <h2 className="page-header">DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
         {this.renderBeamSelector()}
       </div>

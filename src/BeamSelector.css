@@ -1,20 +1,17 @@
-.inputform {
-    width: 80vw;
-    margin: 0 auto;
-  }
-
-  .subform {
+  .beam-form {
+    width: 76vw;
+    margin: 4vh auto;
     border: 1px solid black;
     border-radius: 1vw;
-    margin: 2vh 0;
     padding: 1vh 2vw 1vh;
+    align-content: center;
   }
 
   h3 {
     margin: -2.5vh auto 0;
     background: white;
     padding: 0 0.5vw;
-    width: 16vw;
+    width: 17vw;
     text-align: center
 }
 
@@ -27,21 +24,9 @@
   }
 
   .user-input {
-    margin: 1vh;
+    margin: 1vh auto;
     align-content: center;
-  }
 
-  .user-input input {
-    margin: 0 2vw 0 0.5vw;
-  }
-
-  .title-input {
-    width: 50%;
-  }
-
-
-  .rev-input {
-    width: 3vw;
   }
 
   

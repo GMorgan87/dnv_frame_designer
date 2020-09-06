@@ -86,12 +86,10 @@ class ProtoFrame{
     }
 
     pocketLoadSupportingMinZ(){
-        console.log('flp minZ: ', Math.ceil(((981*this.width*this.mgw)/(544*this.grade))/1000))
         return Math.ceil(((981*this.width*this.mgw)/(544*this.grade))/1000)
     }
 
     pocketLoadSupportingMinI(){
-        console.log('flp minI',Math.ceil(((981*this.mgw*this.width**2)/(10496000))/10000))
         return Math.ceil(((981*this.mgw*this.width**2)/(10496000))/10000)
     }
 
@@ -128,7 +126,6 @@ class ProtoFrame{
     getForkLiftPocket(){
         let minI = this.pocketLoadSupportingMinI()
         let minZ = this.pocketLoadSupportingMinZ()
-        console.log(`getforkliftPocket fetch values: I:${minI} Z:${minZ}`)
         return this.fetchMemberForkloftPocket(minI, minZ)
     }
 
@@ -144,7 +141,6 @@ class ProtoFrame{
     }
 
     topSideRailMinArea(){
-        console.log((40*this.longForce)/(17*this.grade)/100)
         return Math.ceil((40*this.longForce)/(17*this.grade)/100)
     }
 
