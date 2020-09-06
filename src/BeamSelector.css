@@ -1,5 +1,5 @@
   .beam-form {
-    width: 76vw;
+    width: 30vw;
     margin: 4vh auto;
     border: 1px solid black;
     border-radius: 1vw;
@@ -15,7 +15,7 @@
     text-align: center
 }
 
-  .calc-button {
+  .confirm-button {
     width: 100%;
     margin: 0;
     padding: 1vw 0;
@@ -26,7 +26,6 @@
   .user-input {
     margin: 1vh auto;
     align-content: center;
-
   }
 
   
