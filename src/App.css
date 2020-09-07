@@ -2,9 +2,7 @@
   text-align: center;
 }
 
-.page-header {
-  margin: 0 auto;
-}
+
 
 .App-logo {
   height: 40vmin;
@@ -31,8 +29,6 @@
 .App-link {
   color: #61dafb;
 }
-
-
 
 @keyframes App-logo-spin {
   from {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
 import ProtoFrame from '../ProtoFrame'
 import BeamSelector from '../components/BeamSelector'
+import '../AppContainer.css'
 
 class AppContainer extends Component {
 
