@@ -31,8 +31,18 @@
     align-content: center;
   }
 
+  .frame-input {
+    margin: 1vh;
+    align-content: center;
+  }
+
   .user-input input {
     margin: 0 2vw 0 0.5vw;
+  }
+
+  .frame-input input {
+    margin: 0 2vw 0 0.5vw;
+    width: 8vw;
   }
 
   .title-input {

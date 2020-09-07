@@ -21,8 +21,11 @@ class BeamSelector extends Component {
   
 
   getBeamOptions(arr){
-    // console.log('getbeamoptions: ', arr)
     return arr.map((beam, index) => <option value={index} key={beam.id}>{beam.desc}</option>)
+    }
+
+  getPadeyeOptions(arr){
+    return arr.map((padeye, index) => <option value={index} key={padeye.swl}>{padeye.swl}</option>)
     }
 
   handleChange(event){
@@ -76,6 +79,12 @@ class BeamSelector extends Component {
           <label>Top End Rail: </label>
             <select name="topEndRail" onChange={this.handleChange}>
               {this.getBeamOptions(this.props.protoFrame.topEndRail)}
+            </select>
+          </div>
+          <div className="user-input">
+          <label>Padeye: </label>
+            <select name="padeye" onChange={this.handleChange}>
+              {this.getPadeyeOptions(this.props.protoFrame.padeye)}
             </select>
           </div>
           <button className="confirm-button" type="submit">Confirm Selection</button>

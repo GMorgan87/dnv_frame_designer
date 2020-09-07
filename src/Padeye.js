@@ -11,12 +11,21 @@ static getWLL(mgw,slingAngle){
     }
 }
 
+static filterPadeyes(wll){
+    let result = []
+    const keys = Object.keys(PadeyeDims)
+    for (let key of keys){
+        if (parseInt(key) > wll/1000){
+            result.push(PadeyeDims[key])
+        }
+    }
+    return result.sort((a,b)=>a.swl-b.swl)
+}
+
 
 static getPadeye(mgw, slingAngle){
     const wll = this.getWLL(mgw, slingAngle)
-    const keys = Object.keys(PadeyeDims).sort((a,b)=> a-b)
-    const key = keys.find(v => v>wll/1000)
-    return PadeyeDims[key]
+    return Padeye.filterPadeyes(wll)
 }
 
 }

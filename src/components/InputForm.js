@@ -69,31 +69,31 @@ class InputForm extends Component {
           </div>
           <div className='subform'>
             <h3>Frame Details</h3>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Length:</label>
                 <input name='length' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Width:</label>
                 <input name='width' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Height:</label>
                   <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Fork Lift Pocket Centres:</label>
                 <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>MGW:</label>
-                <input name='mgw' type='number' min='0' onChange={this.handleChangeFrame}/>
+                <input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Steel Grade (SXXX):</label>
                 <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
             </div>
-            <div className='user-input'>
+            <div className='frame-input'>
               <label>Sling Angle:</label>
                 <select name='slingAngle' onChange={this.handleChangeFrame}>
                   <option value='30'>30</option>
