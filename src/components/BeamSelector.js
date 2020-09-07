@@ -22,13 +22,13 @@ class BeamSelector extends Component {
 
   getBeamOptions(arr){
     // console.log('getbeamoptions: ', arr)
-    return arr.map(beam => <option value={beam} key={beam.id}>{beam.desc}</option>)
+    return arr.map((beam, index) => <option value={index} key={beam.id}>{beam.desc}</option>)
     }
 
   handleChange(event){
     let propertyName = event.target.name;
     let frame = this.state.frame
-    frame[propertyName] = event.target.value;
+    frame[propertyName] = this.props.protoFrame[propertyName][event.target.value];
     this.setState({frame: frame})
   }
 
