@@ -23,11 +23,10 @@ class AppContainer extends Component {
              mgw: 0,
              grade: 355,
              slingAngle: 30
-         },
-         frame:{}
+         }
       }
       this.handleSubmit = this.handleSubmit.bind(this)
-      this.handleFrameChange = this.handleFrameChange.bind(this)
+      this.handleBeamChange = this.handleBeamChange.bind(this)
     }
 
       handleSubmit(frame, project){
@@ -41,7 +40,7 @@ class AppContainer extends Component {
               let protoFrame = new ProtoFrame(this.state.frameDims)
               console.log('protoframe created: ', protoFrame)
                protoFrame.getProtoFrame().then(data => {
-                let frame = {
+                let finalFrame = {
                   baseSideRail: data.baseSideRail[0],
                   baseEndRail: data.baseEndRail[0],
                   forkliftPocket: data.forkliftPocket[0],
@@ -51,18 +50,22 @@ class AppContainer extends Component {
                   padeye: data.padeye[0]
                 } 
                 this.setState({protoFrame: data,
-                                    frame: frame})})
+                                    frame: finalFrame})})
             }
            )
-      } 
+           this.newKey = Math.random()
+      }
+
+      newKey = 1
+    
 
       renderBeamSelector(){
         if (this.state.protoFrame){
-        return <BeamSelector protoFrame={this.state.protoFrame} handleFrameChange={this.handleFrameChange}/>
+        return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} key={this.newKey}/>
         }
       }
 
-      handleFrameChange(event){
+      handleBeamChange(event){
         let propertyName = event.target.name;
         let frame = this.state.frame
         frame[propertyName] = this.state.protoFrame[propertyName][event.target.value];
