@@ -1,4 +1,5 @@
 import ImpactLoads from './ImpactLoads'
+import Padeye from './Padeye'
 
 class ProtoFrame{
 
@@ -26,6 +27,8 @@ class ProtoFrame{
         await this.getTopEndRail().then(data => frame.topEndRail = data)
         await this.getCornerPost().then(data => frame.cornerPost = data)
         await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
+        frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
+        console.log('frame.padeye: ',frame.padeye)
         return frame
     }
 
@@ -156,6 +159,7 @@ class ProtoFrame{
         let minZ = ImpactLoads.minZTop(this.width, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'shs')
     }
+
 }
 
 export default ProtoFrame
