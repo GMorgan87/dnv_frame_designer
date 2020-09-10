@@ -13,9 +13,9 @@ class ProtoFrame{
         this.slingAngle = parseInt(frameDims.slingAngle)
         this.flpH = parseInt(frameDims.flpH)
         this.flpT = parseInt(frameDims.flpT)
-        this.flpEh = this.flpH + 2 * this.flpT
+        this.flpEh = () => this.flpH + 2 * this.flpT
         this.flpW = parseInt(frameDims.flpW)
-        this.flpEw = this.flpW  + 2 * this.flpT
+        this.flpEw = () => this.flpW  + 2 * this.flpT
         this.overhang = (frameDims.length-frameDims.flpCentres)/2
         this.Rsl = Math.round((3*this.mgw*9.81)/(3*Math.cos((this.slingAngle*(Math.PI/180)))))
         this.VRsl = Math.round(this.Rsl*Math.cos((this.slingAngle*(Math.PI/180))))
@@ -40,7 +40,7 @@ class ProtoFrame{
             }
         await this.getCornerPost().then(data => frame.cornerPost = data)
         if (this.plateFlp) {
-            frame.forkliftPocket = [this.getFoldedFlp()]
+            frame.forkliftPocket = this.getFoldedFlp()
         } else {
             await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
         }
@@ -150,40 +150,41 @@ class ProtoFrame{
     }
 
     getFoldedFlp(){
-         if (this.checkFoldedFlp()){
-             return { desc: `${this.flpW}x${this.flpH}x${this.flpT} Folded Plate`,
-                    Iyy: this.getFlpI(),
-                    Zyy: this.getFlpZ(),
-                    thk: this.flpT,
-                    csa: (this.flpEw * this.flpEh)-(this.flpW * this.flpH),
-                    mass: this.getFlpMass()
-                    }
+        while (!this.checkFoldedFlp()) {
+            console.log('flpEw before:', this.flpEw())
+            this.flpT += 1
+            console.log('flpEw after:', this.flpEw())
             }
-    }
-
-    getFlpI(){
-        return Math.round((((this.flpEw * this.flpEh**3)-(this.flpW*this.flpH**3))/12)/10000) 
-    }
-
-    getFlpZ(){
-        return Math.round((((this.flpEw * this.flpEh**3)-(this.flpW*this.flpH**3))/(6*this.flpEh))/1000)
-    }
-
-    getFlpMass(){
-        return Math.round(((this.flpEw * this.flpEh)-(this.flpW * this.flpH))*78.5)/100
+        return [{ desc: `${this.flpW}x${this.flpH}x${this.flpT} Folded Plate`,
+            Iyy: this.getFlpI(),
+            Zyy: this.getFlpZ(),
+            thk: this.flpT,
+            csa: (this.flpEw() * this.flpEh())-(this.flpW * this.flpH),
+            mass: this.getFlpMass()
+            }]         
     }
 
     checkFoldedFlp(){
         const minI = this.pocketLoadSupportingMinI()
-        console.log('minI: ', minI)
         const minZ = this.pocketLoadSupportingMinZ()
-        console.log('minZ: ', minZ)
         const flpI = this.getFlpI()
-        console.log('flpI: ', flpI)
         const flpZ = this.getFlpZ()
-        console.log('flpZ: ', flpZ)
+        console.log(`minI: ${minI}, flpI ${flpI}`)
+        console.log(`minZ: ${minZ}, flpZ ${flpZ}`)
         console.log('flp check: ', minZ<flpZ && minI<flpI)
         return (minZ<flpZ && minI<flpI)
+    }
+
+    getFlpI(){
+        return Math.round((((this.flpEw() * this.flpEh()**3)-(this.flpW*this.flpH**3))/12)/10000) 
+    }
+
+    getFlpZ(){
+        return Math.round((((this.flpEw() * this.flpEh()**3)-(this.flpW*this.flpH**3))/(6*this.flpEh()))/1000)
+    }
+
+    getFlpMass(){
+        return Math.round(((this.flpEw() * this.flpEh())-(this.flpW * this.flpH))*78.5)/100
     }
 
     cornerPostMinArea(){
