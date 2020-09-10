@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../InputForm.css'
-// import CheckBoxes from './CheckBoxes'
+import FlpInputs from './FlpInputs'
 
 class InputForm extends Component {
     constructor(props) {
@@ -127,6 +127,12 @@ class InputForm extends Component {
                 <input type="checkbox" id="flp" name="flp" value="flp" onChange={this.handleChangeCheckbox}/>
                 <label for="flp">Use folded plate for fork lift pockets</label>
               </div>
+              {this.state.checkboxes.flp
+              ?
+              <FlpInputs/>
+              :
+              <div></div>
+              }
               </div>
             </div>
             <button className='calc-button' type='submit'>Calculate</button>
