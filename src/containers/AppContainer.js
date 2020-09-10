@@ -23,21 +23,27 @@ class AppContainer extends Component {
              mgw: 0,
              grade: 355,
              slingAngle: 30
+         },
+         checkboxes: {
+          endRail: false,
+          cornerPost: false,
+          flp: false
          }
       }
       this.handleSubmit = this.handleSubmit.bind(this)
       this.handleBeamChange = this.handleBeamChange.bind(this)
     }
 
-      handleSubmit(frame, project){
+      handleSubmit(frame, project, checkboxes){
         const today = new Date();
         const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         project.date = date
         this.setState({
             frameDims: frame,
-            projectDetails: project
+            projectDetails: project,
+            checkboxes: checkboxes
             },function(){
-              let protoFrame = new ProtoFrame(this.state.frameDims)
+              let protoFrame = new ProtoFrame(this.state.frameDims, this.state.checkboxes)
               console.log('protoframe created: ', protoFrame)
                protoFrame.getProtoFrame().then(data => {
                 let finalFrame = {
@@ -55,9 +61,6 @@ class AppContainer extends Component {
            )
            
       }
-
-      // newKey = function() { return Math.random()}
-    
 
       renderBeamSelector(){
         if (this.state.protoFrame){
@@ -80,11 +83,9 @@ class AppContainer extends Component {
         {this.state.protoFrame
         ?
         <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} key={this.newKey}/>
-          :
+        :
         <div></div>
-
       }
-        {/* {this.renderBeamSelector()} */}
       </div>
     )
   }

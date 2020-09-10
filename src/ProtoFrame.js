@@ -3,7 +3,7 @@ import Padeye from './Padeye'
 
 class ProtoFrame{
 
-    constructor(frameDims){
+    constructor(frameDims, checkboxes){
         this.length = parseInt(frameDims.length)
         this.width = parseInt(frameDims.width)
         this.height = parseInt(frameDims.height)
@@ -17,12 +17,19 @@ class ProtoFrame{
         this.HRsl = Math.round(this.Rsl*Math.sin((this.slingAngle*(Math.PI/180))))
         this.padeyeAngle = Math.atan2(this.width,this.length)
         this.longForce = Math.round(this.HRsl*Math.cos(this.padeyeAngle))
+        this.matchEndRail = checkboxes.endRail
+        this.matchCornerPost = checkboxes.cornerPost
+        this.plateFlp = checkboxes.flp
     }
 
     async getProtoFrame(){
         let frame = {}
         await this.getBaseSideRail().then(data => frame.baseSideRail = data)
-        await this.getBaseEndRail().then(data => frame.baseEndRail = data)
+        if (this.matchEndRail) {
+                frame.baseEndRail = frame.baseSideRail
+            } else {
+                await this.getBaseEndRail().then(data => frame.baseEndRail = data)
+            }
         await this.getTopSideRail().then(data => frame.topSideRail = data)
         await this.getTopEndRail().then(data => frame.topEndRail = data)
         await this.getCornerPost().then(data => frame.cornerPost = data)

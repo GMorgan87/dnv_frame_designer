@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../InputForm.css'
+// import CheckBoxes from './CheckBoxes'
 
 class InputForm extends Component {
     constructor(props) {
@@ -20,10 +21,16 @@ class InputForm extends Component {
              flpCentres: 2050,
              grade: 355,
              slingAngle: 30
+         },
+         checkboxes: {
+           endRail: false,
+           cornerPost: false,
+           flp: false
          }
       }
       this.handleChangeFrame = this.handleChangeFrame.bind(this);
       this.handleChangeProject = this.handleChangeProject.bind(this);
+      this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
       this.submit = this.submit.bind(this);
     }
 
@@ -41,9 +48,16 @@ class InputForm extends Component {
         this.setState({projectDetails: projectDetails})
       }
 
+      handleChangeCheckbox(event){
+        let propertyName = event.target.name
+        let checkboxes = this.state.checkboxes
+        checkboxes[propertyName] = !checkboxes[propertyName]
+        this.setState({checkboxes: checkboxes})
+      }
+
     submit(event){
         event.preventDefault()
-        this.props.handleSubmit(this.state.frameDims, this.state.projectDetails)
+        this.props.handleSubmit(this.state.frameDims, this.state.projectDetails, this.state.checkboxes)
     }
     
   render() {
@@ -69,38 +83,52 @@ class InputForm extends Component {
           </div>
           <div className='subform'>
             <h3>Frame Details</h3>
-            <div className='frame-input'>
-              <label>Length:</label>
-                <input name='length' type='number' min='0' onChange={this.handleChangeFrame}/>
+            <div className='frame-form'>
+              <div className='frame-input'>
+                <label>Length:</label>
+                  <input name='length' type='number' min='0' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>Width:</label>
+                  <input name='width' type='number' min='0' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>Height:</label>
+                    <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>Fork Lift Pocket Centres:</label>
+                  <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>MGW:</label>
+                  <input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>Steel Grade (SXXX):</label>
+                  <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
+              </div>
+              <div className='frame-input'>
+                <label>Sling Angle:</label>
+                  <select name='slingAngle' onChange={this.handleChangeFrame}>
+                    <option value='30'>30</option>
+                    <option value='45'>45</option>
+                  </select>
+              </div>
+              <div className='frame-input'>
+                <input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/>
+                <label for="endRail">Match end rails with side rails</label>
+              </div>
+              <div className='frame-input'>
+                <input type="checkbox" id="cornerPost" name="cornerPost" value="cornerPost" onChange={this.handleChangeCheckbox}/>
+                <label for="cornerPost">Match corner post width with side rail width</label>
+              </div>
+              <div className='frame-input'>
+                <input type="checkbox" id="flp" name="flp" value="flp" onChange={this.handleChangeCheckbox}/>
+                <label for="flp">Use folded plate for fork lift pockets</label>
+              </div>
+              </div>
             </div>
-            <div className='frame-input'>
-              <label>Width:</label>
-                <input name='width' type='number' min='0' onChange={this.handleChangeFrame}/>
-            </div>
-            <div className='frame-input'>
-              <label>Height:</label>
-                  <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
-            </div>
-            <div className='frame-input'>
-              <label>Fork Lift Pocket Centres:</label>
-                <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
-            </div>
-            <div className='frame-input'>
-              <label>MGW:</label>
-                <input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame}/>
-            </div>
-            <div className='frame-input'>
-              <label>Steel Grade (SXXX):</label>
-                <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
-            </div>
-            <div className='frame-input'>
-              <label>Sling Angle:</label>
-                <select name='slingAngle' onChange={this.handleChangeFrame}>
-                  <option value='30'>30</option>
-                  <option value='45'>45</option>
-                 </select>
-          </div>       
-          </div>
             <button className='calc-button' type='submit'>Calculate</button>
         </form>
       </div>
