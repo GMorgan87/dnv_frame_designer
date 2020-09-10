@@ -28,7 +28,7 @@ class ProtoFrame{
         await this.getCornerPost().then(data => frame.cornerPost = data)
         await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
-        console.log('frame.padeye: ',frame.padeye)
+        console.log('frame.padeye: ', frame.padeye)
         return frame
     }
 

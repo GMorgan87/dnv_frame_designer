@@ -5,8 +5,12 @@ import '../BeamSelector.css'
 class BeamSelector extends Component {
 
   getBeamOptions(arr){
-    return arr.map((beam, index) => <option value={index} key={beam.id}>{beam.desc}</option>)
-    }
+    return arr.map((beam, index) => {
+      if (index === 0) {
+        return <option selected value={index} key={beam.id}>{beam.desc}</option>
+      }
+    return <option value={index} key={beam.id}>{beam.desc}</option>
+    })}
 
   getPadeyeOptions(arr){
     return arr.map((padeye, index) => <option value={index} key={padeye.swl}>{padeye.swl}</option>)
@@ -30,7 +34,7 @@ class BeamSelector extends Component {
           <h3>Suggested Design</h3>
           <div className="user-input">
           <label >Base Side Rail: </label>
-            <select name="baseSideRail" onChange={this.props.handleBeamChange}>
+            <select name="baseSideRail"  onChange={this.props.handleBeamChange}>
               {this.getBeamOptions(this.props.protoFrame.baseSideRail)}
             </select>
           </div>

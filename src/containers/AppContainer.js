@@ -53,15 +53,15 @@ class AppContainer extends Component {
                                     frame: finalFrame})})
             }
            )
-           this.newKey = Math.random()
+           
       }
 
-      newKey = 1
+      // newKey = function() { return Math.random()}
     
 
       renderBeamSelector(){
         if (this.state.protoFrame){
-        return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} key={this.newKey}/>
+        return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} />
         }
       }
 
@@ -77,7 +77,14 @@ class AppContainer extends Component {
       <div>
         <h2 className="page-header">DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
-        {this.renderBeamSelector()}
+        {this.state.protoFrame
+        ?
+        <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} key={this.newKey}/>
+          :
+        <div></div>
+
+      }
+        {/* {this.renderBeamSelector()} */}
       </div>
     )
   }
