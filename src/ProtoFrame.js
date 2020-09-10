@@ -151,11 +151,9 @@ class ProtoFrame{
 
     getFoldedFlp(){
         while (!this.checkFoldedFlp()) {
-            console.log('flpEw before:', this.flpEw())
             this.flpT += 1
-            console.log('flpEw after:', this.flpEw())
             }
-        return [{ desc: `${this.flpW}x${this.flpH}x${this.flpT} Folded Plate`,
+        return [{ desc: `${this.flpEw()}x${this.flpEh()}x${this.flpT} Folded Plate`,
             Iyy: this.getFlpI(),
             Zyy: this.getFlpZ(),
             thk: this.flpT,
