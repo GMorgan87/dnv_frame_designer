@@ -5,16 +5,16 @@ class FlpInputs extends Component {
     return (
       <div>
         <div className='frame-input'>
-            <label>FLP internal Height:</label>
-                <input name='flph' type='number' min='90'/>
+            <label>FLP Internal Height:</label>
+                <input name='flpH' type='number' min='90'defaultValue='90' onChange={this.props.handleChange}/>
         </div>
         <div className='frame-input'>
             <label>FLP Internal Width:</label>
-                <input name='flpw' type='number' min='200'/>
+                <input name='flpW' type='number' min='200' defaultValue='200' onChange={this.props.handleChange}/>
         </div>
         <div className='frame-input'>
             <label>FLP Plate Thickness:</label>
-                <input name='mgw' type='number' min='6'/>
+                <input name='flpT' type='number' min='6' defaultValue='6' onChange={this.props.handleChange}/>
         </div>
       </div>
     )

@@ -11,6 +11,11 @@ class ProtoFrame{
         this.mgw = parseInt(frameDims.mgw)
         this.grade = parseInt(frameDims.grade)
         this.slingAngle = parseInt(frameDims.slingAngle)
+        this.flpH = parseInt(frameDims.flpH)
+        this.flpT = parseInt(frameDims.flpT)
+        this.flpEh = this.flpH + 2 * this.flpT
+        this.flpW = parseInt(frameDims.flpW)
+        this.flpEw = this.flpW  + 2 * this.flpT
         this.overhang = (frameDims.length-frameDims.flpCentres)/2
         this.Rsl = Math.round((3*this.mgw*9.81)/(3*Math.cos((this.slingAngle*(Math.PI/180)))))
         this.VRsl = Math.round(this.Rsl*Math.cos((this.slingAngle*(Math.PI/180))))
@@ -25,15 +30,20 @@ class ProtoFrame{
     async getProtoFrame(){
         let frame = {}
         await this.getBaseSideRail().then(data => frame.baseSideRail = data)
+        await this.getTopSideRail().then(data => frame.topSideRail = data)
         if (this.matchEndRail) {
                 frame.baseEndRail = frame.baseSideRail
+                frame.topEndRail = frame.topSideRail
             } else {
                 await this.getBaseEndRail().then(data => frame.baseEndRail = data)
+                await this.getTopEndRail().then(data => frame.topEndRail = data)
             }
-        await this.getTopSideRail().then(data => frame.topSideRail = data)
-        await this.getTopEndRail().then(data => frame.topEndRail = data)
         await this.getCornerPost().then(data => frame.cornerPost = data)
-        await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
+        if (this.plateFlp) {
+            frame.forkliftPocket = [this.getFoldedFlp()]
+        } else {
+            await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
+        }
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
         console.log('frame.padeye: ', frame.padeye)
         return frame
@@ -104,7 +114,7 @@ class ProtoFrame{
     }
 
     getBaseSideRailMinI(){
-        let results = [this.baseSideRailDuringSlingLiftMinI(),
+        const results = [this.baseSideRailDuringSlingLiftMinI(),
                        this.baseSideRailDuringFLPLiftEndsMinI(),
                        this.baseSideRailDuringFLPLiftCentreMinI()]
         const minI = results.reduce((a,b) => Math.max(a,b))
@@ -112,7 +122,7 @@ class ProtoFrame{
     }
 
     getBaseSideRailMinZ(){
-        let results = [this.baseSideRailDuringSlingLiftMinZ(),
+        const results = [this.baseSideRailDuringSlingLiftMinZ(),
                        this.baseSideRailDuringFLPLiftCentreMinZ(),
                        this.baseSideRailDuringFLPLiftEndsMinZ()]
         const minZ = results.reduce((a,b) => Math.max(a,b))
@@ -120,23 +130,60 @@ class ProtoFrame{
     }
 
     getBaseSideRail(){
-        let minIy = ImpactLoads.minI(this.length, this.mgw)
-        let minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
-        let minIx = this.getBaseSideRailMinI()
-        let minZx = this.getBaseSideRailMinZ()
+        const minIy = ImpactLoads.minI(this.length, this.mgw)
+        const minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
+        const minIx = this.getBaseSideRailMinI()
+        const minZx = this.getBaseSideRailMinZ()
         return this.fetchMember(minIx, minZx, minIy, minZy)
     }
 
     getBaseEndRail(){
-        let minI =  ImpactLoads.minI(this.width, this.mgw)
-        let minZ = ImpactLoads.minZ(this.width, this.mgw, this.grade)
+        const minI =  ImpactLoads.minI(this.width, this.mgw)
+        const minZ = ImpactLoads.minZ(this.width, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'rhs')
     }
 
     getForkLiftPocket(){
-        let minI = this.pocketLoadSupportingMinI()
-        let minZ = this.pocketLoadSupportingMinZ()
+        const minI = this.pocketLoadSupportingMinI()
+        const minZ = this.pocketLoadSupportingMinZ()
         return this.fetchMemberForkloftPocket(minI, minZ)
+    }
+
+    getFoldedFlp(){
+         if (this.checkFoldedFlp()){
+             return { desc: `${this.flpW}x${this.flpH}x${this.flpT} Folded Plate`,
+                    Iyy: this.getFlpI(),
+                    Zyy: this.getFlpZ(),
+                    thk: this.flpT,
+                    csa: (this.flpEw * this.flpEh)-(this.flpW * this.flpH),
+                    mass: this.getFlpMass()
+                    }
+            }
+    }
+
+    getFlpI(){
+        return Math.round((((this.flpEw * this.flpEh**3)-(this.flpW*this.flpH**3))/12)/10000) 
+    }
+
+    getFlpZ(){
+        return Math.round((((this.flpEw * this.flpEh**3)-(this.flpW*this.flpH**3))/(6*this.flpEh))/1000)
+    }
+
+    getFlpMass(){
+        return Math.round(((this.flpEw * this.flpEh)-(this.flpW * this.flpH))*78.5)/100
+    }
+
+    checkFoldedFlp(){
+        const minI = this.pocketLoadSupportingMinI()
+        console.log('minI: ', minI)
+        const minZ = this.pocketLoadSupportingMinZ()
+        console.log('minZ: ', minZ)
+        const flpI = this.getFlpI()
+        console.log('flpI: ', flpI)
+        const flpZ = this.getFlpZ()
+        console.log('flpZ: ', flpZ)
+        console.log('flp check: ', minZ<flpZ && minI<flpI)
+        return (minZ<flpZ && minI<flpI)
     }
 
     cornerPostMinArea(){
@@ -144,9 +191,9 @@ class ProtoFrame{
     }
 
     getCornerPost(){
-        let minI = ImpactLoads.minI(this.height, this.mgw)
-        let minZ = ImpactLoads.minZ(this.height, this.mgw, this.grade)
-        let minA = this.cornerPostMinArea()
+        const minI = ImpactLoads.minI(this.height, this.mgw)
+        const minZ = ImpactLoads.minZ(this.height, this.mgw, this.grade)
+        const minA = this.cornerPostMinArea()
         return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
     }
 
@@ -155,15 +202,15 @@ class ProtoFrame{
     }
 
     getTopSideRail(){
-        let minI = ImpactLoads.minITop(this.length, this.mgw)
-        let minZ = ImpactLoads.minZTop(this.length, this.mgw, this.grade)
-        let minA = this.topSideRailMinArea()
+        const minI = ImpactLoads.minITop(this.length, this.mgw)
+        const minZ = ImpactLoads.minZTop(this.length, this.mgw, this.grade)
+        const minA = this.topSideRailMinArea()
         return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
     }
 
     getTopEndRail(){
-        let minI = ImpactLoads.minITop(this.width, this.mgw)
-        let minZ = ImpactLoads.minZTop(this.width, this.mgw, this.grade)
+        const minI = ImpactLoads.minITop(this.width, this.mgw)
+        const minZ = ImpactLoads.minZTop(this.width, this.mgw, this.grade)
         return this.fetchMemberY(minI, minZ, 'shs')
     }
 

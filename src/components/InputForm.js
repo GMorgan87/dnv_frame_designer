@@ -20,7 +20,10 @@ class InputForm extends Component {
              mgw: 0,
              flpCentres: 2050,
              grade: 355,
-             slingAngle: 30
+             slingAngle: 30,
+             flpH: 90,
+             flpW: 200,
+             flpT: 6
          },
          checkboxes: {
            endRail: false,
@@ -120,16 +123,12 @@ class InputForm extends Component {
                 <label for="endRail">Match end rails with side rails</label>
               </div>
               <div className='frame-input'>
-                <input type="checkbox" id="cornerPost" name="cornerPost" value="cornerPost" onChange={this.handleChangeCheckbox}/>
-                <label for="cornerPost">Match corner post width with side rail width</label>
-              </div>
-              <div className='frame-input'>
                 <input type="checkbox" id="flp" name="flp" value="flp" onChange={this.handleChangeCheckbox}/>
                 <label for="flp">Use folded plate for fork lift pockets</label>
               </div>
               {this.state.checkboxes.flp
               ?
-              <FlpInputs/>
+              <FlpInputs handleChange={this.handleChangeFrame}/>
               :
               <div></div>
               }
