@@ -8,37 +8,53 @@ class Calculator {
         this.topSideRail = frame.topSideRail
         this.topEndRail = frame.topEndRail
         this.padeye = frame.padeye
-        this.height = dimensions.height
-        this.length = dimensions.length
-        this.width = dimensions.width
-        this.mgw = dimensions.mgw
-        this.grade = dimensions.grade
-        this.slingAngle = dimensions.slingAngle
+        this.height = parseInt(dimensions.height)
+        this.length = parseInt(dimensions.length)
+        this.width = parseInt(dimensions.width)
+        this.mgw = parseInt(dimensions.mgw)
+        this.grade = parseInt(dimensions.grade)
+        this.slingAngle = parseInt(dimensions.slingAngle)
+        this.design16 = parseInt(dimensions.mgw * 9.81 * 1.6)
+        this.design25 = parseInt(dimensions.mgw * 9.81 * 2.5)
         this.getMemberLengths()
+        this.tare = this.getFrameTare()
     }
 
     getMemberLengths(){
         const sideRailLength = this.length - (2 * this.cornerPost.x)
         this.baseSideRail.length = sideRailLength
+        this.baseSideRail.span = sideRailLength
         this.topSideRail.length = sideRailLength
+        this.topSideRail.span = sideRailLength
         const baseEndRailLength = this.width - (2 * this.baseSideRail.y)
         this.baseEndRail.length = baseEndRailLength
+        this.baseEndRail.span = baseEndRailLength
         this.forkliftPocket.span = baseEndRailLength
+        this.forkliftPocket.length = this.width + 10
         this.topEndRail.length = this.width - (2 * this.topSideRail.y)
-        this.cornerPost.length = this.heigth - (this.baseSideRail.x + this.topSideRail.x)
+        this.cornerPost.span = this.height - (this.baseSideRail.x + this.topSideRail.x)
+        this.cornerPost.length = this.height
     }
 
     getReportValues(){
         const reportValues = {}
-        reportValues.designLoad = this.designLoad()
         return reportValues       
     }
 
-    designLoad(){
-        return this.mgw * 2.5 * 9.81
+    getFrameTare(){
+        let tare = 0
+        let beams = [this.baseSideRail, this.baseEndRail, this.cornerPost, this.cornerPost, this.topSideRail, this.forkliftPocket]
+        beams.forEach(beam => {console.log('beam, getBeamWeight(beam) :>> ', beam, this.getBeamWeight(beam));
+                                tare += 2 * this.getBeamWeight(beam)})
+        
+        console.log('tare :>> ', Math.ceil((tare * 1.05)/50)*50);
+        return Math.ceil((tare * 1.05)/50)*50
     }
 
-    
+    getBeamWeight(beam){
+        return beam.mass * beam.length / 1000
+    }
+
     
 
 
