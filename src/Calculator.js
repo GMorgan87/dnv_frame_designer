@@ -14,6 +14,18 @@ class Calculator {
         this.mgw = dimensions.mgw
         this.grade = dimensions.grade
         this.slingAngle = dimensions.slingAngle
+        this.getMemberLengths()
+    }
+
+    getMemberLengths(){
+        const sideRailLength = this.length - (2 * this.cornerPost.x)
+        this.baseSideRail.length = sideRailLength
+        this.topSideRail.length = sideRailLength
+        const baseEndRailLength = this.width - (2 * this.baseSideRail.y)
+        this.baseEndRail.length = baseEndRailLength
+        this.forkliftPocket.span = baseEndRailLength
+        this.topEndRail.length = this.width - (2 * this.topSideRail.y)
+        this.cornerPost.length = this.heigth - (this.baseSideRail.x + this.topSideRail.x)
     }
 
     getReportValues(){
@@ -25,6 +37,8 @@ class Calculator {
     designLoad(){
         return this.mgw * 2.5 * 9.81
     }
+
+    
     
 
 
