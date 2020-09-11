@@ -70,18 +70,22 @@ class InputForm extends Component {
           <div className='subform'>
             <h3>Project Details</h3>
             <div className='user-input'>
-            <label>Client:</label>
-                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject}/>
+            <label>Company:</label>
+                <input className='title-input' name='company' type='text' onChange={this.handleChangeProject} required/>
+            </div>
+            <div className='user-input'>
+            <label>Designer:</label>
+                <input className='title-input' name='designer' type='text' onChange={this.handleChangeProject} required/>
             </div>
             <div className='user-input'>
             <label>Project Title:</label>
-                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject}/>
+                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject} required/>
             </div>
             <div className='user-input'>
             <label>Document No.:</label>
-                <input name='docNo' type='text' onChange={this.handleChangeProject}/>
+                <input name='docNo' type='text' onChange={this.handleChangeProject} required/>
             <label>Revision:</label>
-                <input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject}/>
+                <input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject} required/>
             </div>
           </div>
           <div className='subform'>
@@ -89,27 +93,27 @@ class InputForm extends Component {
             <div className='frame-form'>
               <div className='frame-input'>
                 <label>Length:</label>
-                  <input name='length' type='number' min='0' onChange={this.handleChangeFrame}/>
+                  <input name='length' type='number' min='0' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>Width:</label>
-                  <input name='width' type='number' min='0' onChange={this.handleChangeFrame}/>
+                  <input name='width' type='number' min='0' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>Height:</label>
-                    <input name='height' type='number' min='0' onChange={this.handleChangeFrame}/>
+                    <input name='height' type='number' min='0' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>Fork Lift Pocket Centres:</label>
-                  <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame}/>
+                  <input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>MGW:</label>
-                  <input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame}/>
+                  <input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>Steel Grade (SXXX):</label>
-                  <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame}/>
+                  <input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame} required/>
               </div>
               <div className='frame-input'>
                 <label>Sling Angle:</label>
