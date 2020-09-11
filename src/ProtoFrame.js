@@ -29,7 +29,14 @@ class ProtoFrame{
 
     async getProtoFrame(){
         let frame = {}
-        await this.getBaseSideRail().then(data => frame.baseSideRail = data)
+        if (this.plateFlp) {
+            frame.forkliftPocket = this.getFoldedFlp()
+        } else {
+            await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
+        }
+        console.log("frame after FLP fetch: ", frame.forkliftPocket[0].y)
+        await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
+        this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
         await this.getTopSideRail().then(data => frame.topSideRail = data)
         if (this.matchEndRail) {
                 frame.baseEndRail = frame.baseSideRail
@@ -39,13 +46,7 @@ class ProtoFrame{
                 await this.getTopEndRail().then(data => frame.topEndRail = data)
             }
         await this.getCornerPost().then(data => frame.cornerPost = data)
-        if (this.plateFlp) {
-            frame.forkliftPocket = this.getFoldedFlp()
-        } else {
-            await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
-        }
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
-        console.log('frame.padeye: ', frame.padeye)
         return frame
     }
 
@@ -57,9 +58,9 @@ class ProtoFrame{
         return result
     }
 
-    async fetchMember(minIx, minZx, minIy, minZy){
+    async fetchMember(minIx, minZx, minIy, minZy, minY){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}`)
+        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -129,12 +130,13 @@ class ProtoFrame{
         return minZ
     }
 
-    getBaseSideRail(){
+    getBaseSideRail(minY){
+        console.log('getBaseSideRail called')
         const minIy = ImpactLoads.minI(this.length, this.mgw)
         const minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
         const minIx = this.getBaseSideRailMinI()
         const minZx = this.getBaseSideRailMinZ()
-        return this.fetchMember(minIx, minZx, minIy, minZy)
+        return this.fetchMember(minIx, minZx, minIy, minZy, minY)
     }
 
     getBaseEndRail(){
@@ -149,6 +151,15 @@ class ProtoFrame{
         return this.fetchMemberForkloftPocket(minI, minZ)
     }
 
+    checkStressAtFlp(sideRailH, flpH, sideRailT){
+        const area = (sideRailH - flpH) * sideRailT
+        console.log('flp area: ', area)
+        const minArea = (5*(this.mgw*7.848))/(17*this.grade)
+        console.log('min area: ', minArea)
+        console.log('checkStressAtFlp: ', area > minArea)
+        return area > minArea
+    }
+
     getFoldedFlp(){
         while (!this.checkFoldedFlp()) {
             this.flpT += 1
@@ -157,8 +168,10 @@ class ProtoFrame{
             Iyy: this.getFlpI(),
             Zyy: this.getFlpZ(),
             thk: this.flpT,
-            csa: (this.flpEw() * this.flpEh())-(this.flpW * this.flpH),
-            mass: this.getFlpMass()
+            csa: ((this.flpEw() * this.flpEh())-(this.flpW * this.flpH))/100,
+            mass: this.getFlpMass(),
+            x: this.flpEw(),
+            y: this.flpEh()
             }]         
     }
 
@@ -167,9 +180,6 @@ class ProtoFrame{
         const minZ = this.pocketLoadSupportingMinZ()
         const flpI = this.getFlpI()
         const flpZ = this.getFlpZ()
-        console.log(`minI: ${minI}, flpI ${flpI}`)
-        console.log(`minZ: ${minZ}, flpZ ${flpZ}`)
-        console.log('flp check: ', minZ<flpZ && minI<flpI)
         return (minZ<flpZ && minI<flpI)
     }
 

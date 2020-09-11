@@ -20,8 +20,9 @@ class BeamSelector extends Component {
     return<option value={index} key={padeye.swl}>{padeye.swl}</option>})
     }
 
-  submit(event){
+  submit = (event) => {
     event.preventDefault()
+    this.props.getCalcReport()
   }
   
   render() {

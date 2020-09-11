@@ -30,11 +30,9 @@ class AppContainer extends Component {
           flp: false
          }
       }
-      this.handleSubmit = this.handleSubmit.bind(this)
-      this.handleBeamChange = this.handleBeamChange.bind(this)
     }
 
-      handleSubmit(frame, project, checkboxes){
+      handleSubmit = (frame, project, checkboxes) => {
         const today = new Date();
         const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         project.date = date
@@ -62,13 +60,21 @@ class AppContainer extends Component {
            
       }
 
-      renderBeamSelector(){
-        if (this.state.protoFrame){
-        return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} />
-        }
+      getCalcReport = () => {
+        console.log("Calcs incoming: ", this.state.frame)
       }
 
-      handleBeamChange(event){
+      handleFrameSubmit = (frame) => {
+        this.setState({frame: frame})
+      }
+
+      // renderBeamSelector(){
+      //   if (this.state.protoFrame){
+      //   return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} />
+      //   }
+      // }
+
+      handleBeamChange = (event) => {
         let propertyName = event.target.name;
         let frame = this.state.frame
         frame[propertyName] = this.state.protoFrame[propertyName][event.target.value];
@@ -82,7 +88,7 @@ class AppContainer extends Component {
         <InputForm  handleSubmit={this.handleSubmit}/>
         {this.state.protoFrame
         ?
-        <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} key={this.newKey}/>
+        <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} getCalcReport={this.getCalcReport}/>
         :
         <div></div>
       }
