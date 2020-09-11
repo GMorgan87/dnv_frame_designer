@@ -34,7 +34,6 @@ class ProtoFrame{
         } else {
             await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
         }
-        console.log("frame after FLP fetch: ", frame.forkliftPocket[0].y)
         await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
         this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
         await this.getTopSideRail().then(data => frame.topSideRail = data)
@@ -131,7 +130,6 @@ class ProtoFrame{
     }
 
     getBaseSideRail(minY){
-        console.log('getBaseSideRail called')
         const minIy = ImpactLoads.minI(this.length, this.mgw)
         const minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
         const minIx = this.getBaseSideRailMinI()
@@ -153,9 +151,7 @@ class ProtoFrame{
 
     checkStressAtFlp(sideRailH, flpH, sideRailT){
         const area = (sideRailH - flpH) * sideRailT
-        console.log('flp area: ', area)
         const minArea = (5*(this.mgw*7.848))/(17*this.grade)
-        console.log('min area: ', minArea)
         console.log('checkStressAtFlp: ', area > minArea)
         return area > minArea
     }

@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
 import ProtoFrame from '../ProtoFrame'
 import BeamSelector from '../components/BeamSelector'
+import Report from '../components/Report'
 import '../AppContainer.css'
+import Calculator from '../Calculator'
 
 class AppContainer extends Component {
 
@@ -28,11 +30,13 @@ class AppContainer extends Component {
           endRail: false,
           cornerPost: false,
           flp: false
-         }
+         },
+         submitted: false
       }
     }
 
       handleSubmit = (frame, project, checkboxes) => {
+        this.setState({submitted: false})
         const today = new Date();
         const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         project.date = date
@@ -62,17 +66,15 @@ class AppContainer extends Component {
 
       getCalcReport = () => {
         console.log("Calcs incoming: ", this.state.frame)
+        const calculator = new Calculator(this.state.frame, this.state.frameDims)
+        this.setState({submitted: true})
+        const report = calculator.getReportValues()
+        console.log('report values :>> ', report)
       }
 
       handleFrameSubmit = (frame) => {
         this.setState({frame: frame})
       }
-
-      // renderBeamSelector(){
-      //   if (this.state.protoFrame){
-      //   return <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} />
-      //   }
-      // }
 
       handleBeamChange = (event) => {
         let propertyName = event.target.name;
@@ -86,11 +88,17 @@ class AppContainer extends Component {
       <div>
         <h2 className="page-header">DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
-        {this.state.protoFrame
+        {(this.state.protoFrame&& !this.state.submitted)
         ?
         <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} getCalcReport={this.getCalcReport}/>
         :
         <div></div>
+      }
+      {this.state.submitted
+      ?
+      <Report></Report>
+      :
+      <div></div>
       }
       </div>
     )
