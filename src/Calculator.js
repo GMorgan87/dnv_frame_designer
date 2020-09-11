@@ -44,19 +44,13 @@ class Calculator {
     getFrameTare(){
         let tare = 0
         let beams = [this.baseSideRail, this.baseEndRail, this.cornerPost, this.cornerPost, this.topSideRail, this.forkliftPocket]
-        beams.forEach(beam => {console.log('beam, getBeamWeight(beam) :>> ', beam, this.getBeamWeight(beam));
-                                tare += 2 * this.getBeamWeight(beam)})
-        
-        console.log('tare :>> ', Math.ceil((tare * 1.05)/50)*50);
+        beams.forEach(beam => {tare += 2 * this.getBeamWeight(beam)})
         return Math.ceil((tare * 1.05)/50)*50
     }
 
     getBeamWeight(beam){
         return beam.mass * beam.length / 1000
     }
-
-    
-
 
 }
 

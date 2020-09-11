@@ -61,7 +61,6 @@ class AppContainer extends Component {
                                     frame: finalFrame})})
             }
            )
-           
       }
 
       getCalcReport = () => {
