@@ -5,7 +5,7 @@ const ImpactLoads = (props) => {
     console.log('ImpactLoad comp. props: ', props)
   return (
     <div className='impact-load-calcs'>
-        <p>Impact Load - Horizontal</p>
+        <p>Impact Load - {props.orient}</p>
         <table>
             <tbody>
                 <tr>
@@ -20,13 +20,29 @@ const ImpactLoads = (props) => {
                     <td>Section Size</td>
                     <td>{props.beam.desc.substring(4)}</td>
                 </tr>
+                <tr>
+                    <td>Section Length</td>
+                    <td>{props.beam.length}</td>
+                </tr>
+                <tr>
+                    <td>Elastic Modulus Z</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Moment of Inertia I</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Max Gross</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Horizontal Impact W = ({props.factor} x MGW x 9.81</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
-        {/* <p>Section Length</p>
-        <p>Elastic Modulus Z</p>
-        <p>Moment Of Inertia I</p>
-        <p>Max Gross</p>
-        <p>Horizontal Impact W = (0.25 x MGW x 9.81</p> */}
+        
     </div>
   )
 }
