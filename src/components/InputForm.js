@@ -124,11 +124,11 @@ class InputForm extends Component {
               </div>
               <div className='frame-input'>
                 <input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/>
-                <label for="endRail">Match end rails with side rails</label>
+                <label htmlFor="endRail">Match end rails with side rails</label>
               </div>
               <div className='frame-input'>
                 <input type="checkbox" id="flp" name="flp" value="flp" onChange={this.handleChangeCheckbox}/>
-                <label for="flp">Use folded plate for fork lift pockets</label>
+                <label htmlFor="flp">Use folded plate for fork lift pockets</label>
               </div>
               {this.state.checkboxes.flp
               ?

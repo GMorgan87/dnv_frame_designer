@@ -48,10 +48,17 @@ class Calculator {
         return Math.ceil((tare * 1.05)/50)*50
     }
 
+    getImpactLoads(){
+        
+    }
+
+    impactLoadCalc(){
+        
+    }
+
     getBeamWeight(beam){
         return beam.mass * beam.length / 1000
     }
-
 }
 
 export default Calculator

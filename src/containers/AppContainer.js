@@ -87,7 +87,7 @@ class AppContainer extends Component {
       <div>
         <h2 className="page-header">DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
-        {(this.state.protoFrame&& !this.state.submitted)
+        {(this.state.protoFrame && !this.state.submitted)
         ?
         <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} getCalcReport={this.getCalcReport}/>
         :
@@ -95,10 +95,11 @@ class AppContainer extends Component {
       }
       {this.state.submitted
       ?
-      <Report></Report>
+      <Report project={this.state.projectDetails} frame={this.state.frame}/>
       :
       <div></div>
       }
+      {/* <Report project={this.state.projectDetails} frame={this.state.frame}></Report> */}
       </div>
     )
   }
