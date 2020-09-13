@@ -188,7 +188,7 @@ class ProtoFrame{
     }
 
     getFlpMass(){
-        return Math.round(((this.flpEw() * this.flpEh())-(this.flpW * this.flpH))*78.5)/100
+        return Math.round(((this.flpEw() * this.flpEh())-(this.flpW * this.flpH))*0.785)/100
     }
 
     cornerPostMinArea(){

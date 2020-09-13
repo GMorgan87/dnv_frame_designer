@@ -20,11 +20,11 @@ class Calculator {
         this.tare = this.getFrameTare()
         console.log('tare :>> ', this.tare);
     }
-    
+
     getMemberLengths(){
-        console.log('this.length :>> ', this.length);
+        console.log('this.length :>> ', this.length)
         const sideRailLength = this.length - (2 * this.cornerPost.x)
-        console.log('sideRailLength :>> ', sideRailLength);
+        console.log('sideRailLength :>> ', sideRailLength)
         this.baseSideRail.length = sideRailLength
         this.baseSideRail.span = sideRailLength
         this.topSideRail.length = sideRailLength
@@ -32,6 +32,7 @@ class Calculator {
         const EndRailLength = this.width - (2 * this.baseSideRail.y)
         this.baseEndRail.length = EndRailLength
         this.baseEndRail.span = EndRailLength
+        console.log('baseSideRail.span :>> ', this.baseSideRail.span)
         this.forkliftPocket.span = EndRailLength
         this.forkliftPocket.length = this.width + 10
         this.topEndRail.length = this.width - (2 * this.topSideRail.y)
@@ -60,7 +61,7 @@ class Calculator {
     }
 
     getBeamWeight(beam){
-        return beam.mass * beam.length / 1000
+        return beam.mass * (beam.length / 1000)
     }
 }
 

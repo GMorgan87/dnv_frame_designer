@@ -71,21 +71,21 @@ class InputForm extends Component {
             <h3>Project Details</h3>
             <div className='user-input'>
             <label>Company:</label>
-                <input className='title-input' name='company' type='text' onChange={this.handleChangeProject} required/>
+                <input className='title-input' name='company' type='text' onChange={this.handleChangeProject} />
             </div>
             <div className='user-input'>
             <label>Designer:</label>
-                <input className='title-input' name='designer' type='text' onChange={this.handleChangeProject} required/>
+                <input className='title-input' name='designer' type='text' onChange={this.handleChangeProject} />
             </div>
             <div className='user-input'>
             <label>Project Title:</label>
-                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject} required/>
+                <input className='title-input' name='title' type='text' onChange={this.handleChangeProject} />
             </div>
             <div className='user-input'>
             <label>Document No.:</label>
-                <input name='docNo' type='text' onChange={this.handleChangeProject} required/>
+                <input name='docNo' type='text' onChange={this.handleChangeProject} />
             <label>Revision:</label>
-                <input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject} required/>
+                <input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject} />
             </div>
           </div>
           <div className='subform'>
