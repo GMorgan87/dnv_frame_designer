@@ -2,3 +2,21 @@
     width: 200mm;
     height: 270mm;
 }
+
+table {
+    width: 100%;
+    padding: 5mm
+}
+
+.impact-load-calcs p {
+    padding-top: 5mm;
+    padding-left: 5mm;
+}
+
+.impact-load-calcs td {
+    padding: 5mm;
+}
+
+.beam-title {
+    font-weight: bold;
+}
