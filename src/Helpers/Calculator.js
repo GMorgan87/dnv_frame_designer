@@ -11,6 +11,7 @@ class Calculator {
         this.height = parseInt(dimensions.height)
         this.length = parseInt(dimensions.length)
         this.width = parseInt(dimensions.width)
+        this.flpCentres = dimensions.flpCentres
         this.mgw = parseInt(dimensions.mgw)
         this.grade = parseInt(dimensions.grade)
         this.slingAngle = parseInt(dimensions.slingAngle)

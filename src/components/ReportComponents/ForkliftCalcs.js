@@ -84,8 +84,7 @@ const ForkliftCalcs = (props) => {
                     <td></td>
                     <td className="calc-bottom">8 x {z}</td>
                     <td></td>
-                    <td></td>
-                    <p>{lT}0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</p>
+                    <td colspan='2'>{lT} 0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</td>
                 </tr>
                 <tr></tr>
                 <tr>
@@ -104,8 +103,7 @@ const ForkliftCalcs = (props) => {
                     <td></td>
                     <td className="calc-bottom">192 x 205000 x {i}</td>
                     <td></td>
-                    <td></td>
-                    <p>{lT}L/250 = {props.frame.forkliftPocket.span/250}mm</p>
+                    <td colspan='2'>{lT} L/250 = {props.frame.forkliftPocket.span/250}mm</td>
                 </tr>
             </tbody>
         </table>

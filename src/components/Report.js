@@ -4,6 +4,7 @@ import ImpactLoads from './ReportComponents/ImpactLoads'
 import Details from './ReportComponents/Details'
 import FoldedForkliftCalcs from './ReportComponents/FoldedForkliftCalcs'
 import ForkliftCalcs from './ReportComponents/ForkliftCalcs'
+import SideRailCalcs from './ReportComponents/SideRailCalcs'
 // import Calculator from '../Calculator'
 
 
@@ -40,6 +41,7 @@ class Report extends Component {
       <div className="report">
         <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} />
         {this.forkliftCalcs()}
+        <ReportPage project={this.props.project} elements={<SideRailCalcs frame={this.props.frame}/>} />
         {this.impactReports}
       </div>
     )

@@ -6,6 +6,10 @@ table {
     padding: 1mm 5mm;
 }
 
+.data {
+    padding: 4mm 0;
+}
+
 p {
     padding-left: 6mm
 }

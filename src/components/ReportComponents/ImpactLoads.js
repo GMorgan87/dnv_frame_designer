@@ -21,7 +21,7 @@ const ImpactLoads = (props) => {
   return (
     <div className='impact-load-calcs'>
         <p className="beam-title">{props.title}</p>
-        <p>Impact Load - {props.orient}</p>
+        <p><strong>Impact Load - {props.orient}</strong></p>
         <table>
             <tbody>
                 <tr>
@@ -66,23 +66,23 @@ const ImpactLoads = (props) => {
                     <td className="right">{((w()*props.beam.length)/(8*z())).toFixed(2)} Mpa</td>
                 </tr>
                 <tr>
-                    <td className="left">Allowable Stress (0.85 x R<sub>e</sub>)</td>
+                    <td className="left">Allowable Stress (0.85 x R<sub>e</sub>):</td>
                     <td className="right">{(props.grade*0.85).toFixed(2)} Mpa</td>
                 </tr>
                 <tr>
-                    <td className="left">Maximum Stress Accept/Fail</td>
+                    <td className="left">Maximum Stress Accept/Fail:</td>
                     <td>ACCEPT</td>
                 </tr>
                 <tr>
-                    <td className="left">Maximum Deflection (WL^3/192EI)</td>
+                    <td className="left">Maximum Deflection (WL^3/192EI):</td>
                     <td className="right">{((w()*(props.beam.length**3))/(39360000*i())).toFixed(2)} mm</td>
                 </tr>
                 <tr>
-                    <td className="left">Allowable Deflection (L/250)</td>
+                    <td className="left">Allowable Deflection (L/250):</td>
                     <td className="right">{(props.beam.length / 250).toFixed(2)} mm</td>
                 </tr>
                 <tr>
-                    <td className="left">Maximum Deflection Accept/Fail</td>
+                    <td className="left">Maximum Deflection Accept/Fail:</td>
                     <td>ACCEPT</td>
                 </tr>
             </tbody>
