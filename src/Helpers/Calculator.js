@@ -19,7 +19,6 @@ class Calculator {
         this.plateFlp = frame.plateFlp
         this.getMemberLengths()
         this.tare = this.getFrameTare()
-        console.log('tare :>> ', this.tare);
     }
 
     getMemberLengths(){
@@ -39,24 +38,11 @@ class Calculator {
         this.cornerPost.length = this.height
     }
 
-    getReportValues(){
-        const reportValues = {}
-        return reportValues       
-    }
-
     getFrameTare(){
         let tare = 0
         let beams = [this.baseSideRail, this.baseEndRail, this.cornerPost, this.cornerPost, this.topSideRail, this.forkliftPocket]
         beams.forEach(beam => {tare += 2 * this.getBeamWeight(beam)})
         return Math.ceil((tare * 1.05)/500)*500
-    }
-
-    getImpactLoads(){
-        
-    }
-
-    impactLoadCalc(){
-
     }
 
     getBeamWeight(beam){

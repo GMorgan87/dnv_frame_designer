@@ -157,7 +157,6 @@ class ProtoFrame{
     checkStressAtFlp(sideRailH, flpH, sideRailT){
         const area = (sideRailH - flpH) * sideRailT
         const minArea = (5*(this.mgw*7.848))/(17*this.grade)
-        console.log('checkStressAtFlp: ', area > minArea)
         return area > minArea
     }
 

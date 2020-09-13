@@ -65,13 +65,10 @@ class AppContainer extends Component {
       }
 
       getCalcReport = () => {
-        console.log("Calcs incoming: ", this.state.frame)
         const calculator = new Calculator(this.state.frame, this.state.frameDims)
-        this.setState({finalFrame: calculator})
-        console.log('calculator :>> ', calculator);
-        this.setState({submitted: true})
-        const report = calculator.getReportValues()
-        console.log('report values :>> ', report)
+        this.setState({finalFrame: calculator,
+                        submitted: true}, console.log('Frame: ' ,calculator))
+        console.log()
       }
 
       handleFrameSubmit = (frame) => {
