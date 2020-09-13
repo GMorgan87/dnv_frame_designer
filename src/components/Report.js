@@ -38,7 +38,7 @@ class Report extends Component {
   render() {
     return (
       <div className="report">
-        {/* <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} /> */}
+        <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} />
         {this.forkliftCalcs()}
         {this.impactReports}
       </div>

@@ -2,11 +2,15 @@
     padding: 4mm 5mm;
 }
 
+table {
+    padding: 1mm 5mm;
+}
+
 p {
     padding-left: 6mm
 }
 
-table {
+data {
     width: 50%;
     padding: 2mm;
 }
@@ -14,4 +18,13 @@ table {
 .left {
     text-align: right;
     padding: 0 2mm;
+}
+
+.calc-top {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.calc-bottom {
+    text-align: center;
 }

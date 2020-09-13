@@ -166,8 +166,8 @@ class ProtoFrame{
             this.flpT += 1
             }
         return [{ desc: `${this.flpEw()}x${this.flpEh()}x${this.flpT} Fabricated RHS`,
-            Iyy: this.getFlpI(),
-            Zyy: this.getFlpZ(),
+            iyy: this.getFlpI(),
+            zyy: this.getFlpZ(),
             thk: this.flpT,
             csa: ((this.flpEw() * this.flpEh())-(this.flpW * this.flpH))/100,
             mass: this.getFlpMass(),
