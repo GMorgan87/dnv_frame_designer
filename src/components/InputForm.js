@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../InputForm.css'
+import './InputForm.css'
 import FlpInputs from './FlpInputs'
 
 class InputForm extends Component {

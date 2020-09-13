@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import InputForm from '../components/InputForm'
-import ProtoFrame from '../ProtoFrame'
+import ProtoFrame from '../Helpers/ProtoFrame'
 import BeamSelector from '../components/BeamSelector'
 import Report from '../components/Report'
-import '../AppContainer.css'
-import Calculator from '../Calculator'
+import './AppContainer.css'
+import Calculator from '../Helpers/Calculator'
 
 class AppContainer extends Component {
 
@@ -55,7 +55,8 @@ class AppContainer extends Component {
                   cornerPost: data.cornerPost[0],
                   topSideRail: data.topSideRail[0],
                   topEndRail: data.topEndRail[0],
-                  padeye: data.padeye[0]
+                  padeye: data.padeye[0],
+                  plateFlp: data.plateFlp
                 } 
                 this.setState({protoFrame: data,
                                     frame: finalFrame})})
@@ -66,6 +67,7 @@ class AppContainer extends Component {
       getCalcReport = () => {
         console.log("Calcs incoming: ", this.state.frame)
         const calculator = new Calculator(this.state.frame, this.state.frameDims)
+        this.setState({finalFrame: calculator})
         console.log('calculator :>> ', calculator);
         this.setState({submitted: true})
         const report = calculator.getReportValues()
@@ -86,7 +88,7 @@ class AppContainer extends Component {
   render() {
     return (
       <div>
-        <h2 className="page-header">DNV Frame Designer</h2>
+        <h2 className="site-header">DNV Frame Designer</h2>
         <InputForm  handleSubmit={this.handleSubmit}/>
         {(this.state.protoFrame && !this.state.submitted)
         ?
@@ -96,7 +98,7 @@ class AppContainer extends Component {
       }
       {this.state.submitted
       ?
-      <Report project={this.state.projectDetails} dims={this.state.frameDims} frame={this.state.frame}/>
+      <Report project={this.state.projectDetails} frame={this.state.finalFrame}/>
       :
       <div></div>
       }

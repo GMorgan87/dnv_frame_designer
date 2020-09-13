@@ -16,15 +16,14 @@ class Calculator {
         this.slingAngle = parseInt(dimensions.slingAngle)
         this.design16 = parseInt(dimensions.mgw * 9.81 * 1.6)
         this.design25 = parseInt(dimensions.mgw * 9.81 * 2.5)
+        this.plateFlp = frame.plateFlp
         this.getMemberLengths()
         this.tare = this.getFrameTare()
         console.log('tare :>> ', this.tare);
     }
 
     getMemberLengths(){
-        console.log('this.length :>> ', this.length)
         const sideRailLength = this.length - (2 * this.cornerPost.x)
-        console.log('sideRailLength :>> ', sideRailLength)
         this.baseSideRail.length = sideRailLength
         this.baseSideRail.span = sideRailLength
         this.topSideRail.length = sideRailLength
@@ -32,10 +31,10 @@ class Calculator {
         const EndRailLength = this.width - (2 * this.baseSideRail.y)
         this.baseEndRail.length = EndRailLength
         this.baseEndRail.span = EndRailLength
-        console.log('baseSideRail.span :>> ', this.baseSideRail.span)
         this.forkliftPocket.span = EndRailLength
         this.forkliftPocket.length = this.width + 10
         this.topEndRail.length = this.width - (2 * this.topSideRail.y)
+        this.topEndRail.span = this.width - (2 * this.topSideRail.y)
         this.cornerPost.span = this.height - (this.baseSideRail.x + this.topSideRail.x)
         this.cornerPost.length = this.height
     }
@@ -49,7 +48,7 @@ class Calculator {
         let tare = 0
         let beams = [this.baseSideRail, this.baseEndRail, this.cornerPost, this.cornerPost, this.topSideRail, this.forkliftPocket]
         beams.forEach(beam => {tare += 2 * this.getBeamWeight(beam)})
-        return Math.ceil((tare * 1.05)/50)*50
+        return Math.ceil((tare * 1.05)/500)*500
     }
 
     getImpactLoads(){

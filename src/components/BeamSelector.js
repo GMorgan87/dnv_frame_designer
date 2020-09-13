@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import '../BeamSelector.css'
-// import equal from 'fast-deep-equal'
+import './BeamSelector.css'
 
 class BeamSelector extends Component {
 

@@ -1,5 +1,5 @@
 import Enhancement from './Enhancement'
-import PadeyeDims from './PadeyedDims'
+import PadeyeDims from './PadeyeDims'
 
 class Padeye{
 

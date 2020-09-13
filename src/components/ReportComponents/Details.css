@@ -1,0 +1,19 @@
+table {
+    padding: 1mm 20mm;
+}
+
+.header {
+    padding: 4mm 5mm;
+}
+
+p {
+    padding-left: 6mm
+}
+
+.left {
+    width: 50%
+}
+
+.right {
+    width: 50%
+}

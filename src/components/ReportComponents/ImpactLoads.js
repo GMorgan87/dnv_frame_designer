@@ -50,7 +50,7 @@ const ImpactLoads = (props) => {
                 </tr>
                 <tr>
                     <td className="left">Max Gross:</td>
-                    <td className="right">{props.mgw} kgs</td>
+                    <td className="right">{props.mgw} kg</td>
                 </tr>
                 <tr>
                     <td className="left">Horizontal Impact W = ({props.factor}xMGWxg):</td>
@@ -66,7 +66,7 @@ const ImpactLoads = (props) => {
                     <td className="right">{((w()*props.beam.length)/(8*z())).toFixed(2)} Mpa</td>
                 </tr>
                 <tr>
-                    <td className="left">Allowable Stress (0.85 x Re)</td>
+                    <td className="left">Allowable Stress (0.85 x R<sub>e</sub>)</td>
                     <td className="right">{(props.grade*0.85).toFixed(2)} Mpa</td>
                 </tr>
                 <tr>

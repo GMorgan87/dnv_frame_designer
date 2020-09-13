@@ -30,20 +30,25 @@ class ProtoFrame{
     async getProtoFrame(){
         let frame = {}
         if (this.plateFlp) {
+            frame.plateFlp = true
             frame.forkliftPocket = this.getFoldedFlp()
         } else {
+            frame.plateFlp = false
             await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
         }
-        await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
-        this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
         await this.getTopSideRail().then(data => frame.topSideRail = data)
         if (this.matchEndRail) {
-                frame.baseEndRail = frame.baseSideRail
-                frame.topEndRail = frame.topSideRail
+            await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
+            await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseEndRail = data)
+            await this.getTopSideRail().then(data => frame.topSideRail = data)
+            await this.getTopSideRail().then(data => frame.topEndRail = data)
             } else {
+                await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
+                await this.getTopSideRail().then(data => frame.topSideRail = data)
                 await this.getBaseEndRail().then(data => frame.baseEndRail = data)
                 await this.getTopEndRail().then(data => frame.topEndRail = data)
             }
+        this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
         await this.getCornerPost().then(data => frame.cornerPost = data)
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
         return frame
@@ -160,7 +165,7 @@ class ProtoFrame{
         while (!this.checkFoldedFlp()) {
             this.flpT += 1
             }
-        return [{ desc: `${this.flpEw()}x${this.flpEh()}x${this.flpT} Folded Plate`,
+        return [{ desc: `${this.flpEw()}x${this.flpEh()}x${this.flpT} Fabricated RHS`,
             Iyy: this.getFlpI(),
             Zyy: this.getFlpZ(),
             thk: this.flpT,
