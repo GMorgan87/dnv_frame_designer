@@ -12,7 +12,7 @@ const ReportPage = (props) => {
       <div className="border">
       <table className ="page-header"><tbody>
         <tr>
-          <td className="page=title">CALCULATION SHEET</td>
+          <td className="page-title">CALCULATION SHEET</td>
         </tr>
       </tbody></table>
       <table className ="page-header"><tbody>
@@ -20,9 +20,17 @@ const ReportPage = (props) => {
           <td className='header-proj'>Project: {props.project.title}</td>
         </tr>
       </tbody></table>
+      <table className ="page-header">
+        <tbody>
+          <tr>
+            <td className="header-client">Client: {props.project.client}</td>
+            <td>Designer: {props.project.designer}</td>
+          </tr>
+        </tbody>
+      </table>
       <table className ="page-header"><tbody>
         <tr>
-          <td className='header-data'>Doc No: {props.project.docNo}</td>
+          <td className='header-doc'>Doc No: {props.project.docNo}</td>
           <td className='header-data-mid'>Rev: {props.project.rev}</td>
           <td className='header-data'>Date: {props.project.date}</td>
         </tr>
