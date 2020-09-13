@@ -70,7 +70,7 @@ const ImpactLoads = (props) => {
                     <td className="right">{(props.grade*0.85).toFixed(2)} Mpa</td>
                 </tr>
                 <tr>
-                    <td>Maximum Stress Accept/Fail</td>
+                    <td className="left">Maximum Stress Accept/Fail</td>
                     <td>ACCEPT</td>
                 </tr>
                 <tr>
@@ -82,7 +82,7 @@ const ImpactLoads = (props) => {
                     <td className="right">{(props.beam.length / 250).toFixed(2)} mm</td>
                 </tr>
                 <tr>
-                    <td>Maximum Deflection Accept/Fail</td>
+                    <td className="left">Maximum Deflection Accept/Fail</td>
                     <td>ACCEPT</td>
                 </tr>
             </tbody>
