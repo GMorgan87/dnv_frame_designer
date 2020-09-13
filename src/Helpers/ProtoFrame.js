@@ -56,7 +56,7 @@ class ProtoFrame{
 
     async fetchMemberY(minI, minZ, desc){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
+        await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -64,7 +64,7 @@ class ProtoFrame{
 
     async fetchMember(minIx, minZx, minIy, minZy, minY){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
+        await fetch(`https://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -72,7 +72,7 @@ class ProtoFrame{
 
     async fetchMemberCornerAndTopPost(minI, minZ, desc, csa){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
+        await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
@@ -80,7 +80,7 @@ class ProtoFrame{
 
     async fetchMemberForkloftPocket(minI, minZ){
         let result = {}
-        await fetch(`http://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
+        await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
         .then(res => res.json())
         .then(data => {result = data})
         return result
