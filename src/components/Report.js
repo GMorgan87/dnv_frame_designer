@@ -5,6 +5,10 @@ import Details from './ReportComponents/Details'
 import FoldedForkliftCalcs from './ReportComponents/FoldedForkliftCalcs'
 import ForkliftCalcs from './ReportComponents/ForkliftCalcs'
 import SideRailCalcs from './ReportComponents/SideRailCalcs'
+import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf"
+import './Report.css'
+
 // import Calculator from '../Calculator'
 
 
@@ -36,13 +40,34 @@ class Report extends Component {
     }
   }
 
+  printDocument() {
+    const input = document.getElementById('capture');
+    console.log('input :>> ', input);
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        console.log('imgData :>> ', imgData);
+        const pdf = new jsPDF('p', 'mm', [210, 2970]);
+        console.log('pdf :>> ', pdf);
+        pdf.addImage(imgData, 'PNG', 0, 0, 210, 2970, 'image', 'FAST', 0);
+        console.log('image added')
+        // pdf.output('dataurlnewwindow');
+        pdf.save("download.pdf");
+        console.log('download')
+      })
+    ;
+  }
+
   render() {
     return (
-      <div className="report">
+      <div>
+        <button onClick={this.printDocument}>Save as PDF</button>
+      <div className="report" id="capture">
         <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} />
         {this.forkliftCalcs()}
         <ReportPage project={this.props.project} elements={<SideRailCalcs frame={this.props.frame}/>} />
         {this.impactReports}
+      </div>
       </div>
     )
   }

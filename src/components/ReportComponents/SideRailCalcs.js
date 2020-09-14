@@ -10,7 +10,7 @@ const SideRailCalcs = (props) => {
     const maxDeflection = ((w*(props.frame.baseSideRail.span**3))/(384*205000*ixx)).toFixed(2)
     const lT = '<'
     const c = (props.frame.baseSideRail.length-props.frame.flpCentres)/2
-    const stressSupports = (w*(c**2)/(2*zxx*props.frame.baseSideRail.length))
+    const stressSupports = (w*(c**2)/(2*zxx*props.frame.baseSideRail.length)).toFixed(2)
 
   return (
     <>
@@ -71,7 +71,7 @@ const SideRailCalcs = (props) => {
                   <td></td>
                   <td className="calc-bottom"> 12 x {zxx}</td>
                   <td></td>
-                  <td colspan='2'>{lT} 0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</td>
+                  <td colSpan='2'>{lT} 0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</td>
               </tr>
               <tr></tr>
               <tr>
@@ -90,7 +90,7 @@ const SideRailCalcs = (props) => {
                   <td></td>
                   <td className="calc-bottom"> 385 x 205000 x {ixx}</td>
                   <td></td>
-                  <td colspan='2'>{lT} L/250 = {props.frame.baseSideRail.span/250}mm</td>
+                  <td colSpan='2'>{lT} L/250 = {props.frame.baseSideRail.span/250}mm</td>
               </tr>
           </tbody>
       </table>
@@ -142,7 +142,7 @@ const SideRailCalcs = (props) => {
                   <td></td>
                   <td className="calc-bottom"> 2 x {zxx} x {props.frame.baseSideRail.length}</td>
                   <td></td>
-                  <td colspan='2'>{lT} 0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</td>
+                  <td colSpan='2'>{lT} 0.85 x {props.frame.grade} = {props.frame.grade*0.85} Mpa</td>
               </tr>
           </tbody>
       </table>
