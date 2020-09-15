@@ -9,10 +9,9 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf"
 import './Report.css'
 
-// import Calculator from '../Calculator'
-
-
 class Report extends Component {
+
+  pdf = new jsPDF('p', 'mm', 'a4');
 
   impactLoadBeams = [
     [this.props.frame.baseSideRail, "Vertical", 0.25, "Base Side Rail"],
@@ -40,23 +39,75 @@ class Report extends Component {
     }
   }
 
-  printDocument() {
-    const input = document.getElementById('capture');
-    console.log('input :>> ', input);
-    html2canvas(input)
+  getImages = (pages) => {
+    let images = []
+    for (let i = 0; i < pages.length; i++){
+      // console.log(`pages[${i}] :>> `, pages[i]);
+      html2canvas(pages[i])
       .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        console.log('imgData :>> ', imgData);
-        const pdf = new jsPDF('p', 'mm', [210, 2970]);
-        console.log('pdf :>> ', pdf);
-        pdf.addImage(imgData, 'PNG', 0, 0, 210, 2970, 'image', 'FAST', 0);
-        console.log('image added')
-        // pdf.output('dataurlnewwindow');
-        pdf.save("download.pdf");
-        console.log('download')
+        let img = canvas.toDataURL('image/png')
+        images.push(img)
       })
-    ;
+      if (i===pages.length-1){
+        console.log('add images')
+        console.log('images :>> ', images);
+      }
+    }
+    this.addPages(images)
+    return images
   }
+
+
+  addPages = (imgs) => {
+    imgs.forEach((img,index) => {
+      console.log('images for each')
+      this.pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
+      console.log('image added')
+      this.pdf.addPage('a4', 'p')
+      console.log(`page${index}  added`)
+      if(index===imgs.length-1){
+          this.pdf.deletePage(11)
+          console.log('output')
+      }
+    })
+  }
+
+  printDocument = () => {
+    const pages = document.getElementsByClassName('a4-page')
+    this.getImages(pages)
+    // console.log('pages :>> ', pages);
+    // console.log('pdf :>> ', this.pdf);
+  }
+
+    // html2canvas(pages[0])
+    // .then((canvas) => {
+    //     const imgData = canvas.toDataURL('image/png');
+    //     pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
+    //   })
+
+    
+
+    
+
+    // for (let i = 0; i < pages.length; i++){
+    //   console.log(`pages[${i}] :>> `, pages[i]);
+    //   html2canvas(pages[i])
+    //   .then((canvas) => {
+    //     let img = canvas.toDataURL('image/png');
+    //     pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
+    //     // console.log('image added')
+    //     pdf.addPage('a4', 'p')
+    //     // console.log(`page ${i} added`)
+    //     if(i===pages.length-1){
+    //       pdf.deletePage(11)
+    //       // console.log('output')
+    //       pdf.output('dataurlnewwindow')
+    //     }
+    //   })
+    // }
+
+    // pdf.save("download.pdf");
+  
 
   render() {
     return (
