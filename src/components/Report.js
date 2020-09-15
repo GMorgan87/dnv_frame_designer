@@ -5,6 +5,7 @@ import Details from './ReportComponents/Details'
 import FoldedForkliftCalcs from './ReportComponents/FoldedForkliftCalcs'
 import ForkliftCalcs from './ReportComponents/ForkliftCalcs'
 import SideRailCalcs from './ReportComponents/SideRailCalcs'
+import CornerPostCalcs from './ReportComponents/CornerPostCalcs'
 import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf"
 import './Report.css'
@@ -33,9 +34,9 @@ class Report extends Component {
                                                                                                 grade={this.props.frame.grade}/>}/>)
 
   forkliftCalcs = () =>  {if (this.props.frame.plateFlp) {
-    return <ReportPage project={this.props.project} elements={<FoldedForkliftCalcs frame={this.props.frame}/>}/>
+    return <ReportPage project={this.props.project} elements={[<FoldedForkliftCalcs frame={this.props.frame}/>, <CornerPostCalcs frame={this.props.frame}/>]}/>
     } else {
-    return <ReportPage project={this.props.project} elements={<ForkliftCalcs frame={this.props.frame}/>}/>
+    return <ReportPage project={this.props.project} elements={[<ForkliftCalcs frame={this.props.frame}/>, <CornerPostCalcs frame={this.props.frame}/>]}/>
     }
   }
 
