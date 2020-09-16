@@ -174,24 +174,24 @@ const SideRailCalcs = (props) => {
               <tr>
                   <td>Deflection at ends</td>
                   <td>=</td>
-                  <td className="calc-top" colspan="3">(Fl/2) x C(3C<sup>2</sup>x (C + (2 x l)) - l<sup>3</sup>)</td>
+                  <td className="calc-top" colSpan="3">(Fl/2) x C(3C<sup>2</sup>x (C + (2 x l)) - l<sup>3</sup>)</td>
               </tr>
               <tr>
                   <td></td>
                   <td></td>
-                  <td className="calc-bottom" colspan="3">24 x E x I x L</td>
+                  <td className="calc-bottom" colSpan="3">24 x E x I x L</td>
               </tr>
               <tr>
                   <td></td>
                   <td>=</td>
-                  <td className="calc-top" colspan="3">{w2}x{c}x(3x{c}<sup>2</sup>x({c}+(2x{l}))-{l}<sup>3</sup>)</td>
+                  <td className="calc-top" colSpan="3">{w2}x{c}x(3x{c}<sup>2</sup>x({c}+(2x{l}))-{l}<sup>3</sup>)</td>
                   <td>=</td>
                   <td><strong>{deflectionEnds}</strong> mm</td>
               </tr>
               <tr>
                   <td></td>
                   <td></td>
-                  <td className="calc-bottom" colspan="3">24 x 205000 x {ixx} x {length}</td>
+                  <td className="calc-bottom" colSpan="3">24 x 205000 x {ixx} x {length}</td>
                   <td></td>
                   <td colSpan='2'>{lT} L/300 = {allowableDef}mm</td>
               </tr>
@@ -199,24 +199,24 @@ const SideRailCalcs = (props) => {
               <tr>
                   <td>Deflection at centre</td>
                   <td>=</td>
-                  <td className="calc-top" colspan="3">(Fl/2) x l<sup>2</sup> (5 x l<sup>2</sup> - 24 x C<sup>2</sup>)</td>
+                  <td className="calc-top" colSpan="3">(Fl/2) x l<sup>2</sup> (5 x l<sup>2</sup> - 24 x C<sup>2</sup>)</td>
               </tr>
               <tr>
                   <td></td>
                   <td></td>
-                  <td className="calc-bottom" colspan="3">384 x E x I x L</td>
+                  <td className="calc-bottom" colSpan="3">384 x E x I x L</td>
               </tr>
               <tr>
                   <td></td>
                   <td>=</td>
-                  <td className="calc-top" colspan="3">{w2} x {l}<sup>2</sup> (5 x {l}<sup>2</sup> - 24 x {c}<sup>2</sup>)</td>
+                  <td className="calc-top" colSpan="3">{w2} x {l}<sup>2</sup> (5 x {l}<sup>2</sup> - 24 x {c}<sup>2</sup>)</td>
                   <td>=</td>
                   <td><strong>{deflectionCentre}</strong> mm</td>
               </tr>
               <tr>
                   <td></td>
                   <td></td>
-                  <td className="calc-bottom" colspan="3">384 x 205000 x {ixx} x {length}</td>
+                  <td className="calc-bottom" colSpan="3">384 x 205000 x {ixx} x {length}</td>
                   <td></td>
                   <td colSpan='2'>{lT} L/300 = {allowableDef}mm</td>
               </tr>

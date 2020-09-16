@@ -7,13 +7,10 @@ import ForkliftCalcs from './ReportComponents/ForkliftCalcs'
 import SideRailCalcs from './ReportComponents/SideRailCalcs'
 import CornerPostCalcs from './ReportComponents/CornerPostCalcs'
 import ForkliftStress from './ReportComponents/ForkliftStress'
-import html2canvas from 'html2canvas';
-import { jsPDF } from "jspdf"
+import PdfWriter from '../Helpers/PdfWriter'
 import './Report.css'
 
 class Report extends Component {
-
-  pdf = new jsPDF('p', 'mm', 'a4');
 
   impactLoadBeams = [
     [this.props.frame.baseSideRail, "Vertical", 0.25, "Base Side Rail"],
@@ -45,45 +42,49 @@ class Report extends Component {
     }
   }
 
-  getImages = (pages) => {
-    let images = []
-    for (let i = 0; i < pages.length; i++){
-      // console.log(`pages[${i}] :>> `, pages[i]);
-      html2canvas(pages[i])
-      .then((canvas) => {
-        let img = canvas.toDataURL('image/png')
-        images.push(img)
-      })
-      if (i===pages.length-1){
-        console.log('add images')
-        console.log('images :>> ', images);
-      }
-    }
-    this.addPages(images)
-    return images
-  }
-
-
-  addPages = (imgs) => {
-    imgs.forEach((img,index) => {
-      console.log('images for each')
-      this.pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
-      console.log('image added')
-      this.pdf.addPage('a4', 'p')
-      console.log(`page${index}  added`)
-      if(index===imgs.length-1){
-          this.pdf.deletePage(11)
-          console.log('output')
-      }
-    })
-  }
-
   printDocument = () => {
+    
     const pages = document.getElementsByClassName('a4-page')
-    this.getImages(pages)
-    // console.log('pages :>> ', pages);
-    // console.log('pdf :>> ', this.pdf);
+    console.log(pages)
+    const pdfWriter = new PdfWriter(pages)
+    pdfWriter.createPdf()
+    // this.getImages(pages)
   }
+
+  // getImages = (pages) => {
+  //   let images = []
+  //   for (let i = 0; i < pages.length; i++){
+  //     // console.log(`pages[${i}] :>> `, pages[i]);
+  //     html2canvas(pages[i])
+  //     .then((canvas) => {
+  //       let img = canvas.toDataURL('image/png')
+  //       images.push(img)
+  //     })
+  //     if (i===pages.length-1){
+  //       console.log('add images')
+  //       console.log('images :>> ', images);
+  //     }
+  //   }
+  //   this.addPages(images)
+  //   return images
+  // }
+
+
+  // addPages = (imgs) => {
+  //   imgs.forEach((img,index) => {
+  //     console.log('images for each')
+  //     this.pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
+  //     console.log('image added')
+  //     this.pdf.addPage('a4', 'p')
+  //     console.log(`page${index}  added`)
+  //     if(index===imgs.length-1){
+  //         this.pdf.deletePage(11)
+  //         console.log('output')
+  //     }
+  //   })
+  // }
+
+  
 
     // html2canvas(pages[0])
     // .then((canvas) => {
@@ -118,7 +119,7 @@ class Report extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.printDocument}>Save as PDF</button>
+        {/* <button onClick={this.printDocument}>Save as PDF</button> */}
       <div className="report" id="capture">
         <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} />
         {this.forkliftCalcs()}
