@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/dnv_frame_designer/static/css/main.b951a49b.chunk.css",
-    "main.js": "/dnv_frame_designer/static/js/main.af8bde0f.chunk.js",
-    "main.js.map": "/dnv_frame_designer/static/js/main.af8bde0f.chunk.js.map",
+    "main.js": "/dnv_frame_designer/static/js/main.24ca46fa.chunk.js",
+    "main.js.map": "/dnv_frame_designer/static/js/main.24ca46fa.chunk.js.map",
     "runtime-main.js": "/dnv_frame_designer/static/js/runtime-main.82a40e51.js",
     "runtime-main.js.map": "/dnv_frame_designer/static/js/runtime-main.82a40e51.js.map",
     "static/js/2.41db7f5c.chunk.js": "/dnv_frame_designer/static/js/2.41db7f5c.chunk.js",
     "static/js/2.41db7f5c.chunk.js.map": "/dnv_frame_designer/static/js/2.41db7f5c.chunk.js.map",
-    "static/js/3.745a5c8b.chunk.js": "/dnv_frame_designer/static/js/3.745a5c8b.chunk.js",
-    "static/js/3.745a5c8b.chunk.js.map": "/dnv_frame_designer/static/js/3.745a5c8b.chunk.js.map",
+    "static/js/3.48ef8fb4.chunk.js": "/dnv_frame_designer/static/js/3.48ef8fb4.chunk.js",
+    "static/js/3.48ef8fb4.chunk.js.map": "/dnv_frame_designer/static/js/3.48ef8fb4.chunk.js.map",
     "static/js/4.364be9ad.chunk.js": "/dnv_frame_designer/static/js/4.364be9ad.chunk.js",
     "static/js/4.364be9ad.chunk.js.map": "/dnv_frame_designer/static/js/4.364be9ad.chunk.js.map",
     "index.html": "/dnv_frame_designer/index.html",
-    "precache-manifest.b1bff45c1ca52e348fbe9007206459b8.js": "/dnv_frame_designer/precache-manifest.b1bff45c1ca52e348fbe9007206459b8.js",
+    "precache-manifest.7bb970fd0f2b33e645b46ea756e5124c.js": "/dnv_frame_designer/precache-manifest.7bb970fd0f2b33e645b46ea756e5124c.js",
     "service-worker.js": "/dnv_frame_designer/service-worker.js",
     "static/css/main.b951a49b.chunk.css.map": "/dnv_frame_designer/static/css/main.b951a49b.chunk.css.map",
-    "static/js/3.745a5c8b.chunk.js.LICENSE.txt": "/dnv_frame_designer/static/js/3.745a5c8b.chunk.js.LICENSE.txt",
+    "static/js/3.48ef8fb4.chunk.js.LICENSE.txt": "/dnv_frame_designer/static/js/3.48ef8fb4.chunk.js.LICENSE.txt",
     "static/js/4.364be9ad.chunk.js.LICENSE.txt": "/dnv_frame_designer/static/js/4.364be9ad.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.82a40e51.js",
-    "static/js/3.745a5c8b.chunk.js",
+    "static/js/3.48ef8fb4.chunk.js",
     "static/css/main.b951a49b.chunk.css",
-    "static/js/main.af8bde0f.chunk.js"
+    "static/js/main.24ca46fa.chunk.js"
   ]
 }
