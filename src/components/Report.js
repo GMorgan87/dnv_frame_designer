@@ -50,13 +50,9 @@ class Report extends Component {
     await html2canvas(page1)
     .then((canvas) => {
         let img = canvas.toDataURL('image/png')
-        console.log('img1 :>> ', img);
         let position = 0
-        console.log('canvas.width :>> ', canvas.width);
-        console.log('canvas.height :>> ', canvas.height);
         const pageHeight = 297;
         const imgHeight = 2970;
-        console.log('imgHeight :>> ', imgHeight);
         let heightLeft = imgHeight;
         pdf.addImage(img, 'PNG', 0, position, 210, 2970, 'image', 'FAST', 0);
         heightLeft -= pageHeight
@@ -77,7 +73,9 @@ class Report extends Component {
   render() {
     return (
       <div className="report-display">
-        <button onClick={this.printDocument}>Save as PDF</button>
+        <div className="report-header">
+          <button className="report-button" onClick={this.printDocument}>Save as PDF</button>
+        </div>
       <div className="report" id="capture">
         <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} pageNum='page1'/>
         {this.forkliftCalcs()}

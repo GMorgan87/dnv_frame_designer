@@ -1,5 +1,29 @@
+.report-display {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+}
+
 .report {
     width: 210mm;
     height: auto;
-    margin: 0;
+    margin: 0 auto;
+}
+
+.report-header {
+    display: flex;
+    margin: 0 auto;
+    width: 210mm;
+    height: 8vh;
+    background-color: grey;
+}
+
+.report-button {
+    margin: 2vh auto;
+    width: 10vw;
+    height: 4vh
 }
