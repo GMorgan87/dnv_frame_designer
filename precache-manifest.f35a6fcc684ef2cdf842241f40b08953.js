@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a6e7edb245b3b7e75196aa97f588431d",
+    "revision": "ade94359abf3477d737c9d167675c63b",
     "url": "/dnv_frame_designer/index.html"
   },
   {
