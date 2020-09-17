@@ -10,11 +10,17 @@
     padding: 1vh 2vw 1vh;
   }
 
+  .input-left {
+    text-align: right;
+    margin: 0;
+    width: 35%
+  }
 
-  /* .frame-form {
-    border: 1px solid black;
-    width: 40vw
-  } */
+  .input-right {
+    text-align: left;
+    margin:0;
+    width: 65`%
+  }
 
   h3 {
     margin: -2.5vh auto 0;
@@ -52,7 +58,11 @@
   }
 
   .title-input {
-    width: 50%;
+    width: 90%;
+  }
+
+  .input-table {
+    padding: 0
   }
 
 
@@ -61,7 +71,7 @@
   }
 
   span {
-    margin: -1.5vw;
+    margin: 0;
   }
 
   

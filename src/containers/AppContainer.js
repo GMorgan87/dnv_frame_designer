@@ -103,7 +103,6 @@ class AppContainer extends Component {
       :
       <div></div>
       }
-      {/* <Report project={this.state.projectDetails} frame={this.state.frame}></Report> */}
       </div>
     )
   }
