@@ -7,8 +7,9 @@ import ForkliftCalcs from './ReportComponents/ForkliftCalcs'
 import SideRailCalcs from './ReportComponents/SideRailCalcs'
 import CornerPostCalcs from './ReportComponents/CornerPostCalcs'
 import ForkliftStress from './ReportComponents/ForkliftStress'
-import PdfWriter from '../Helpers/PdfWriter'
+import { jsPDF } from "jspdf"
 import './Report.css'
+import html2canvas from 'html2canvas'
 
 class Report extends Component {
 
@@ -32,7 +33,7 @@ class Report extends Component {
                                                                                                 grade={this.props.frame.grade}/>}/>)
 
   forkliftCalcs = () =>  {if (this.props.frame.plateFlp) {
-    return <ReportPage project={this.props.project} elements={[<FoldedForkliftCalcs frame={this.props.frame}/>,
+    return <ReportPage project={this.props.project}  elements={[<FoldedForkliftCalcs frame={this.props.frame}/>,
                                                                <ForkliftStress frame={this.props.frame} />,
                                                                <CornerPostCalcs frame={this.props.frame}/>]}/>
     } else {
@@ -42,86 +43,44 @@ class Report extends Component {
     }
   }
 
-  printDocument = () => {
-    
-    const pages = document.getElementsByClassName('a4-page')
-    console.log(pages)
-    const pdfWriter = new PdfWriter(pages)
-    pdfWriter.createPdf()
-    // this.getImages(pages)
+  async printDocument(){
+    const pdf = new jsPDF('p', 'mm', 'a4')
+    const page1 = document.getElementById('capture')
+    console.log('page1 :>> ', page1);
+    await html2canvas(page1)
+    .then((canvas) => {
+        let img = canvas.toDataURL('image/png')
+        console.log('img1 :>> ', img);
+        let position = 0
+        console.log('canvas.width :>> ', canvas.width);
+        console.log('canvas.height :>> ', canvas.height);
+        const pageHeight = 297;
+        const imgHeight = 2970;
+        console.log('imgHeight :>> ', imgHeight);
+        let heightLeft = imgHeight;
+        pdf.addImage(img, 'PNG', 0, position, 210, 2970, 'image', 'FAST', 0);
+        heightLeft -= pageHeight
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          console.log('adding page')
+          pdf.addPage();
+          pdf.addImage(img, 'PNG', 0, position, 210, 2970, 'image', 'FAST', 0);
+          heightLeft -= pageHeight
+        }
+    })
+      pdf.deletePage(11)
+      // pdf.output('dataurlnewwindow')
+      pdf.save("download.pdf");
+
   }
-
-  // getImages = (pages) => {
-  //   let images = []
-  //   for (let i = 0; i < pages.length; i++){
-  //     // console.log(`pages[${i}] :>> `, pages[i]);
-  //     html2canvas(pages[i])
-  //     .then((canvas) => {
-  //       let img = canvas.toDataURL('image/png')
-  //       images.push(img)
-  //     })
-  //     if (i===pages.length-1){
-  //       console.log('add images')
-  //       console.log('images :>> ', images);
-  //     }
-  //   }
-  //   this.addPages(images)
-  //   return images
-  // }
-
-
-  // addPages = (imgs) => {
-  //   imgs.forEach((img,index) => {
-  //     console.log('images for each')
-  //     this.pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
-  //     console.log('image added')
-  //     this.pdf.addPage('a4', 'p')
-  //     console.log(`page${index}  added`)
-  //     if(index===imgs.length-1){
-  //         this.pdf.deletePage(11)
-  //         console.log('output')
-  //     }
-  //   })
-  // }
-
-  
-
-    // html2canvas(pages[0])
-    // .then((canvas) => {
-    //     const imgData = canvas.toDataURL('image/png');
-    //     pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
-    //   })
-
-    
-
-    
-
-    // for (let i = 0; i < pages.length; i++){
-    //   console.log(`pages[${i}] :>> `, pages[i]);
-    //   html2canvas(pages[i])
-    //   .then((canvas) => {
-    //     let img = canvas.toDataURL('image/png');
-    //     pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0);
-    //     // console.log('image added')
-    //     pdf.addPage('a4', 'p')
-    //     // console.log(`page ${i} added`)
-    //     if(i===pages.length-1){
-    //       pdf.deletePage(11)
-    //       // console.log('output')
-    //       pdf.output('dataurlnewwindow')
-    //     }
-    //   })
-    // }
-
-    // pdf.save("download.pdf");
-  
 
   render() {
     return (
-      <div>
-        {/* <button onClick={this.printDocument}>Save as PDF</button> */}
+      <div className="report-display">
+        <button onClick={this.printDocument}>Save as PDF</button>
       <div className="report" id="capture">
-        <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} />
+        <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} pageNum='page1'/>
         {this.forkliftCalcs()}
         <ReportPage project={this.props.project} elements={<SideRailCalcs frame={this.props.frame}/>} />
         {this.impactReports}

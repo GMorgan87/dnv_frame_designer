@@ -8,7 +8,7 @@ const ReportPage = (props) => {
       // };
 
   return (
-    <div className="a4-page" id="page">
+    <div className="a4-page" id={props.pageNum}>
       <div className="border">
       <table className ="page-header"><tbody>
         <tr>

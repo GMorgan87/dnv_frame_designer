@@ -5,8 +5,6 @@ class PdfWriter{
 
     constructor(pages) {
         this.pdf = new jsPDF('p', 'mm', 'a4');
-        this.pages = pages
-        this.images = []
     }
 
      async getImages() {
@@ -48,7 +46,9 @@ class PdfWriter{
         })
     }
 
-    addPage = (img) => {
+    async addPage(page) => {
+        this.getImage(page)
+        .then(img => )
         this.pdf.addImage(img, 'PNG', 0, 0, 210, 297, 'image', 'FAST', 0)
         this.pdf.addPage('a4', 'p')
     }
