@@ -74,7 +74,8 @@ class Report extends Component {
     return (
       <div className="report-display">
         <div className="report-header">
-          <button className="report-button" onClick={this.printDocument}>Save as PDF</button>
+          <button className="report-button" onClick={this.printDocument}>SAVE AS PDF</button>
+          <button className="exit-button" onClick={this.props.exitReport}>EXIT</button>
         </div>
       <div className="report" id="capture">
         <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} pageNum='page1'/>

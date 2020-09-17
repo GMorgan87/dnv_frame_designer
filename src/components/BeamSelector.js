@@ -30,46 +30,54 @@ class BeamSelector extends Component {
         <form onSubmit={this.submit} className="beam-form">
           <h3>Suggested Design</h3>
           <div className="user-input">
-          <label >Base Side Rail: </label>
-            <select name="baseSideRail"  onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.baseSideRail)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Base End Rail: </label>
-            <select name="baseEndRail" onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.baseEndRail)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Forklift Pocket: </label>
-            <select name="forkliftPocket" onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.forkliftPocket)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Corner Post: </label>
-            <select name="cornerPost" onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.cornerPost)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Top Side Rail: </label> 
-            <select name="topSideRail" onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.topSideRail)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Top End Rail: </label>
-            <select name="topEndRail" onChange={this.props.handleBeamChange}>
-              {this.getBeamOptions(this.props.protoFrame.topEndRail)}
-            </select>
-          </div>
-          <div className="user-input">
-          <label>Padeye: </label>
-            <select name="padeye" onChange={this.props.handleBeamChange}>
-              {this.getPadeyeOptions(this.props.protoFrame.padeye)}
-            </select>
+
+          <table>
+            <tbody>
+              <tr>
+                <td><label>Base Side Rail:</label></td>
+                <td><select name="baseSideRail"  onChange={this.props.handleBeamChange}>
+                {this.getBeamOptions(this.props.protoFrame.baseSideRail)}
+                </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Base End Rail: </label></td>
+                <td><select name="baseEndRail" onChange={this.props.handleBeamChange}>
+                  {this.getBeamOptions(this.props.protoFrame.baseEndRail)}
+                  </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Forklift Pocket: </label></td>
+                <td><select name="forkliftPocket" onChange={this.props.handleBeamChange}>
+                  {this.getBeamOptions(this.props.protoFrame.forkliftPocket)}
+                  </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Corner Post: </label></td>
+                <td><select name="cornerPost" onChange={this.props.handleBeamChange}>
+                  {this.getBeamOptions(this.props.protoFrame.cornerPost)}
+                  </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Top Side Rail: </label></td>
+                <td><select name="topSideRail" onChange={this.props.handleBeamChange}>
+                  {this.getBeamOptions(this.props.protoFrame.topSideRail)}
+                  </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Top End Rail: </label></td>
+                <td><select name="topEndRail" onChange={this.props.handleBeamChange}>
+                  {this.getBeamOptions(this.props.protoFrame.topEndRail)}
+                  </select>  </td>
+              </tr>
+              <tr>
+                <td><label>Padeye: </label></td>
+                <td><select name="padeye" onChange={this.props.handleBeamChange}>
+                {this.getPadeyeOptions(this.props.protoFrame.padeye)}
+                </select>  </td>
+              </tr>
+            </tbody>
+          </table>
+            
           </div>
           <button className="confirm-button" type="submit">Confirm Selection</button>
         </form>

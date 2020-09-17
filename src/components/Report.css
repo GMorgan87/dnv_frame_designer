@@ -1,11 +1,10 @@
 .report-display {
     width: 100vw;
-    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 10;
-    background-color: white;
+    background-color: grey;
 }
 
 .report {
@@ -18,12 +17,26 @@
     display: flex;
     margin: 0 auto;
     width: 210mm;
-    height: 8vh;
+    height: 50px;
     background-color: grey;
 }
 
 .report-button {
+    border: solid black 1px;
     margin: 2vh auto;
-    width: 10vw;
-    height: 4vh
+    width: 50%;
+    height: 30px;
+    background-color:rgb(0, 182, 0);
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.exit-button {
+    border: solid black 1px;
+    margin: 2vh auto;
+    width: 50%;
+    height: 30px;
+    background-color: red;
+    font-size: 1.1em;
+    font-weight: bold;
 }

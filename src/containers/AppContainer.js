@@ -81,6 +81,10 @@ class AppContainer extends Component {
         frame[propertyName] = this.state.protoFrame[propertyName][event.target.value];
         this.setState({frame: frame})
       }
+
+      exitReport = () => {
+        this.setState({submitted: false})
+      }
     
   render() {
     return (
@@ -95,7 +99,7 @@ class AppContainer extends Component {
       }
       {this.state.submitted
       ?
-      <Report project={this.state.projectDetails} frame={this.state.finalFrame}/>
+      <Report project={this.state.projectDetails} frame={this.state.finalFrame} exitReport={this.exitReport}/>
       :
       <div></div>
       }
