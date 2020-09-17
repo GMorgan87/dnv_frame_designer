@@ -72,7 +72,6 @@ class Report extends Component {
       pdf.deletePage(11)
       // pdf.output('dataurlnewwindow')
       pdf.save("download.pdf");
-
   }
 
   render() {
