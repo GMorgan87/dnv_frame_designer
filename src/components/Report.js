@@ -10,6 +10,7 @@ import ForkliftStress from './ReportComponents/ForkliftStress'
 import { jsPDF } from "jspdf"
 import './Report.css'
 import html2canvas from 'html2canvas'
+import PadeyeCalcs from './ReportComponents/PadeyeCalcs'
 
 class Report extends Component {
 
@@ -78,9 +79,10 @@ class Report extends Component {
           <button className="exit-button" onClick={this.props.exitReport}>EXIT</button>
         </div>
       <div className="report" id="capture">
-        <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>} pageNum='page1'/>
+        <ReportPage project={this.props.project} elements={<Details frame={this.props.frame}/>}/>
         {this.forkliftCalcs()}
         <ReportPage project={this.props.project} elements={<SideRailCalcs frame={this.props.frame}/>} />
+        <ReportPage project={this.props.project} elements={<PadeyeCalcs frame={this.props.frame}/>} />
         {this.impactReports}
       </div>
       </div>

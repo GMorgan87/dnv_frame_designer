@@ -18,7 +18,6 @@ class ProtoFrame{
         this.flpEw = () => this.flpW  + 2 * this.flpT
         this.overhang = (frameDims.length-frameDims.flpCentres)/2
         this.Rsl = Math.round((3*this.mgw*9.81)/(3*Math.cos((this.slingAngle*(Math.PI/180)))))
-        this.VRsl = Math.round(this.Rsl*Math.cos((this.slingAngle*(Math.PI/180))))
         this.HRsl = Math.round(this.Rsl*Math.sin((this.slingAngle*(Math.PI/180))))
         this.padeyeAngle = Math.atan2(this.width,this.length)
         this.longForce = Math.round(this.HRsl*Math.cos(this.padeyeAngle))
