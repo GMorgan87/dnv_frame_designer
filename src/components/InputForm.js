@@ -113,7 +113,7 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
-                  <td className="input-right"><input name='flpCentres' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span></td>
+                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' onChange={this.handleChangeFrame} required/><span>mm</span></td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>MGW:</label></td>
@@ -133,6 +133,10 @@ class InputForm extends Component {
                 <tr>
                   <td className="input-left"><label htmlFor="endRail">Match end rails with side rails</label></td>
                   <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
+                </tr>
+                <tr>
+                  <td className="input-left"><label htmlFor="flp">Use RHS fork lift pockets</label></td>
+                  <td className="input-right"><input type="checkbox" id="rhsFlp" name="rhsFlp" value="rhsFlp" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
                 <tr>
                   <td className="input-left"><label htmlFor="flp">Use folded plate for fork lift pockets</label></td>

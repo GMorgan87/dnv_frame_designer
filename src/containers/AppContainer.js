@@ -85,6 +85,13 @@ class AppContainer extends Component {
       exitReport = () => {
         this.setState({submitted: false})
       }
+
+
+      componentDidMount(){
+        fetch(`https://resteel.herokuapp.com/sections/rhs/100/100`)
+        .then(res => res.json())
+        .then(data => {console.log("Wake Up")})
+      }
     
   render() {
     return (

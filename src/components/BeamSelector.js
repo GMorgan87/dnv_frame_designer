@@ -3,13 +3,13 @@ import './BeamSelector.css'
 
 class BeamSelector extends Component {
 
-    getBeamOptions(arr){
-      return arr.map((beam, index) => {
-        if (index === 0) {
-          return <option selected value={index} key={beam.id}>{beam.desc}</option>
-        }
-      return <option value={index} key={beam.id}>{beam.desc}</option>
-      })}
+  getBeamOptions(arr){
+    return arr.map((beam, index) => {
+      if (index === 0) {
+        return <option selected value={index} key={beam.id}>{beam.desc}</option>
+      }
+    return <option value={index} key={beam.id}>{beam.desc}</option>
+    })}
 
   getPadeyeOptions(arr){
   return arr.map((padeye, index) => {
