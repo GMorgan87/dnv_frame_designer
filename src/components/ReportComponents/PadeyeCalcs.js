@@ -11,6 +11,10 @@ const PadeyeCalcs = (props) => {
     const rsl = Math.round((3 * props.frame.mgw * 9.81)/(3 * Math.cos(angleRad)))
     const vRsl = Math.round(rsl * Math.cos(angleRad))
     const hRsl = Math.round(rsl * Math.sin(angleRad))
+    const tearOutStress = ((3*rsl)/((2*props.frame.padeye.radius*props.frame.padeye.thk)-(props.frame.padeye.holeDia*props.frame.padeye.thk))).toFixed(2)
+    const thickness = props.frame.padeye.thk + 2*props.frame.padeye.chkThk
+    const contactStress = (23.7 * Math.sqrt(rsl/(props.frame.padeye.holeDia*thickness))).toFixed(2)
+
   return (
     <>
       <p className="header">SLING ASSEMBLY SELECTION:</p>
@@ -87,9 +91,28 @@ const PadeyeCalcs = (props) => {
               <tr>
                   <td>Tear out stress</td>
                   <td>=</td>
-                  <td>3 x RSL</td>
+                  <td className="calc-top">3 x RSL</td>
                   <td>=</td>
+                  <td className="calc-top">3 x {rsl}</td>
+                  <td>=</td>
+                  <td><strong>{tearOutStress}</strong> MPa</td>
+              </tr>
+              <tr>
                   <td></td>
+                  <td></td>
+                  <td className='calc-bottom'>(2 x H x t) - (Dh x t)</td>
+                  <td></td>
+                  <td className='calc-bottom'>(2 x {props.frame.padeye.radius} x {props.frame.padeye.thk}) - ({props.frame.padeye.holeDia} x {props.frame.padeye.thk})</td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td>Contact Stress</td>
+                <td>=</td>
+                <td>23.7 x SQRT(RSL / (Dh x T))</td>
+                <td>=</td>
+                <td>23.7 x SQRT({rsl} / ({props.frame.padeye.holeDia} x {thickness}))</td>
+                <td>=</td>
+                <td><strong>{contactStress}</strong> MPa</td>
               </tr>
           </tbody>
       </table>
