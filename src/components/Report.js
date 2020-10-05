@@ -68,7 +68,7 @@ class Report extends Component {
     })
       pdf.deletePage(11)
       // pdf.output('dataurlnewwindow')
-      pdf.save("download.pdf");
+      pdf.save(`${this.props.project.docNo}-${this.props.project.rev}.pdf`);
   }
 
   render() {
@@ -76,6 +76,7 @@ class Report extends Component {
       <div className="report-display">
         <div className="report-header">
           <button className="report-button" onClick={this.printDocument}>SAVE AS PDF</button>
+          <button className="email-button" onClick={this.printDocument}>EMAIL PDF</button>
           <button className="exit-button" onClick={this.props.exitReport}>EXIT</button>
         </div>
       <div className="report" id="capture">

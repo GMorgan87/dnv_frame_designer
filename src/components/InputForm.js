@@ -91,6 +91,10 @@ class InputForm extends Component {
                   <td className="input-left"><label>Revision:</label></td>
                   <td className="input-right"><input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject} /></td>
                 </tr>
+                <tr>
+                  <td className="input-left">Email Address:</td>
+                  <td className="input-right"><input className='title-input' name='email' type='text' onChange={this.handleChangeProject} /></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -133,10 +137,6 @@ class InputForm extends Component {
                 <tr>
                   <td className="input-left"><label htmlFor="endRail">Match end rails with side rails</label></td>
                   <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
-                </tr>
-                <tr>
-                  <td className="input-left"><label htmlFor="flp">Use RHS fork lift pockets</label></td>
-                  <td className="input-right"><input type="checkbox" id="rhsFlp" name="rhsFlp" value="rhsFlp" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
                 <tr>
                   <td className="input-left"><label htmlFor="flp">Use folded plate for fork lift pockets</label></td>

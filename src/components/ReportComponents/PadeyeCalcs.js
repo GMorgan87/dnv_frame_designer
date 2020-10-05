@@ -116,7 +116,6 @@ const PadeyeCalcs = (props) => {
               </tr>
           </tbody>
       </table>
-      
     </>
   )
 }
