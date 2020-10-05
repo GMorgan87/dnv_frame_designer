@@ -24,7 +24,17 @@
 .report-button {
     border: solid black 1px;
     margin: 2vh auto;
-    width: 50%;
+    width: 33%;
+    height: 30px;
+    background-color:rgb(0, 182, 0);
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.email-button {
+    border: solid black 1px;
+    margin: 2vh auto;
+    width: 33%;
     height: 30px;
     background-color:rgb(0, 182, 0);
     font-size: 1.1em;
@@ -34,7 +44,7 @@
 .exit-button {
     border: solid black 1px;
     margin: 2vh auto;
-    width: 50%;
+    width: 33%;
     height: 30px;
     background-color: red;
     font-size: 1.1em;

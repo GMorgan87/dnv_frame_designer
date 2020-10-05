@@ -44,7 +44,7 @@ class Report extends Component {
     }
   }
 
-  async printDocument(){
+  createPDF = async () => {
     const pdf = new jsPDF('p', 'mm', 'a4')
     const page1 = document.getElementById('capture')
     console.log('page1 :>> ', page1);
@@ -53,30 +53,38 @@ class Report extends Component {
         let img = canvas.toDataURL('image/png')
         let position = 0
         const pageHeight = 297;
-        const imgHeight = 2970;
+        const imgHeight = 3267;
         let heightLeft = imgHeight;
-        pdf.addImage(img, 'PNG', 0, position, 210, 2970, 'image', 'FAST', 0);
+        pdf.addImage(img, 'PNG', 0, position, 210, 3267, 'image', 'FAST', 0);
         heightLeft -= pageHeight
 
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           console.log('adding page')
           pdf.addPage();
-          pdf.addImage(img, 'PNG', 0, position, 210, 2970, 'image', 'FAST', 0);
+          pdf.addImage(img, 'PNG', 0, position, 210, 3267, 'image', 'FAST', 0);
           heightLeft -= pageHeight
         }
     })
-      pdf.deletePage(11)
-      // pdf.output('dataurlnewwindow')
-      pdf.save(`${this.props.project.docNo}-${this.props.project.rev}.pdf`);
+      pdf.deletePage(12)
+      return pdf
+  }
+
+  saveDocument = async () => {
+    const pdf = await this.createPDF()
+    pdf.save(`${this.props.project.docNo} - ${this.props.project.rev}.pdf`);
+  }
+
+  emailDocument = async () => {
+    const pdf = await this.createPDF()
   }
 
   render() {
     return (
       <div className="report-display">
         <div className="report-header">
-          <button className="report-button" onClick={this.printDocument}>SAVE AS PDF</button>
-          <button className="email-button" onClick={this.printDocument}>EMAIL PDF</button>
+          <button className="report-button" onClick={this.saveDocument}>SAVE AS PDF</button>
+          <button className="email-button" onClick={this.emailDocument}>EMAIL PDF</button>
           <button className="exit-button" onClick={this.props.exitReport}>EXIT</button>
         </div>
       <div className="report" id="capture">
