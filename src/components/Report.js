@@ -12,6 +12,13 @@ import './Report.css'
 import html2canvas from 'html2canvas'
 import PadeyeCalcs from './ReportComponents/PadeyeCalcs'
 
+require('dotenv').config()
+
+const APIKEY = process.env.REACT_APP_EMAIL_KEY
+const DOMAIN = process.env.REACT_APP_EMAIL_DOM
+
+var mailgun = require('mailgun-js')({apiKey: APIKEY, domain: DOMAIN});
+
 class Report extends Component {
 
   impactLoadBeams = [
@@ -47,7 +54,6 @@ class Report extends Component {
   createPDF = async () => {
     const pdf = new jsPDF('p', 'mm', 'a4')
     const page1 = document.getElementById('capture')
-    console.log('page1 :>> ', page1);
     await html2canvas(page1)
     .then((canvas) => {
         let img = canvas.toDataURL('image/png')
@@ -77,6 +83,18 @@ class Report extends Component {
 
   emailDocument = async () => {
     const pdf = await this.createPDF()
+    var pdfBase64 = pdf.output('datauristring', {filename: `${this.props.project.docNo} - ${this.props.project.rev}.pdf`});
+    const data = {
+        from: "Mailgun Sandbox <postmaster@sandboxa24450ce489046949e01cd4586eebfc2.mailgun.org>",
+        to: "dnvframedesigner@gmail.com",
+        subject: "Hello",
+        text: "Testing some Mailgun awesomness!",
+        // attachment: [pdfBase64]
+      };
+    console.log('data :>> ', data);
+    mailgun.messages().send(data, function (error, body) {
+    console.log(body);
+    });
   }
 
   render() {
