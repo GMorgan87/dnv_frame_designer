@@ -43,27 +43,25 @@ class AppContainer extends Component {
       const today = new Date();
       const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
       project.date = date
+      const protoFrame = new ProtoFrame(frame, checkboxes)
+      const data = protoFrame.getProtoFrame()
+      const finalFrame = {
+        baseSideRail: data.baseSideRail[0],
+        baseEndRail: data.baseEndRail[0],
+        forkliftPocket: data.forkliftPocket[0],
+        cornerPost: data.cornerPost[0],
+        topSideRail: data.topSideRail[0],
+        topEndRail: data.topEndRail[0],
+        padeye: data.padeye[0],
+        plateFlp: data.plateFlp}
       this.setState({
           frameDims: frame,
           projectDetails: project,
-          checkboxes: checkboxes
-          },function(){
-            let protoFrame = new ProtoFrame(this.state.frameDims, this.state.checkboxes)
-            console.log('protoframe created: ', protoFrame)
-            const data = protoFrame.getProtoFrame()
-            let finalFrame = {
-              baseSideRail: data.baseSideRail[0],
-              baseEndRail: data.baseEndRail[0],
-              forkliftPocket: data.forkliftPocket[0],
-              cornerPost: data.cornerPost[0],
-              topSideRail: data.topSideRail[0],
-              topEndRail: data.topEndRail[0],
-              padeye: data.padeye[0],
-              plateFlp: data.plateFlp
-            }
-            this.setState({protoFrame: data,
-                                frame: finalFrame})})
-        }
+          checkboxes: checkboxes,
+          protoFrame: data,
+          frame: finalFrame
+          })
+      }
           
     
 
