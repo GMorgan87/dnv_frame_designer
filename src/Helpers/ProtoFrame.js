@@ -1,5 +1,6 @@
 import ImpactLoads from './ImpactLoads'
 import Padeye from './Padeye'
+import BeamFinder from './BeamFinder'
 
 class ProtoFrame{
 
@@ -37,12 +38,12 @@ class ProtoFrame{
         }
         await this.getTopSideRail().then(data => frame.topSideRail = data)
         if (this.matchEndRail) {
-            await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
+            frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
             await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseEndRail = data)
             await this.getTopSideRail().then(data => frame.topSideRail = data)
             await this.getTopSideRail().then(data => frame.topEndRail = data)
             } else {
-                await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseSideRail = data)
+                frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
                 await this.getTopSideRail().then(data => frame.topSideRail = data)
                 await this.getBaseEndRail().then(data => frame.baseEndRail = data)
                 await this.getTopEndRail().then(data => frame.topEndRail = data)
@@ -63,6 +64,7 @@ class ProtoFrame{
 
     async fetchMember(minIx, minZx, minIy, minZy, minY){
         let result = {}
+        console.log("BeamFinder BaseRails", BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY))
         await fetch(`https://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
         .then(res => res.json())
         .then(data => {result = data})
@@ -138,7 +140,8 @@ class ProtoFrame{
         const minZy = ImpactLoads.minZ(this.length, this.mgw, this.grade)
         const minIx = this.getBaseSideRailMinI()
         const minZx = this.getBaseSideRailMinZ()
-        return this.fetchMember(minIx, minZx, minIy, minZy, minY)
+        return BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY)
+        // return this.fetchMember(minIx, minZx, minIy, minZy, minY)
     }
 
     getBaseEndRail(){

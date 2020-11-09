@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './InputForm.css'
 import FlpInputs from './FlpInputs'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'
+
 
 class InputForm extends Component {
     constructor(props) {
@@ -62,6 +65,15 @@ class InputForm extends Component {
         event.preventDefault()
         this.props.handleSubmit(this.state.frameDims, this.state.projectDetails, this.state.checkboxes)
     }
+
+    tippy = {
+      length: <p>Max length: 20,000mm</p>,
+      width: <p>Max width: 5000mm</p>,
+      height: <p>Max height: 5000mm</p>,
+      weight: <p>Max Weight: 25,000kgs</p>,
+      flpCentres: <div><p>Min: 900mm</p><p>Max: 2050mm</p></div>,
+      grade: <p></p>
+    }
     
   render() {
     return (
@@ -105,23 +117,53 @@ class InputForm extends Component {
               <tbody>
                 <tr>
                   <td className="input-left"><label>Length:</label></td>
-                  <td className="input-right"><input name='length' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span></td>
+                  <td className="input-right"><input name='length' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
+                    <Tippy content={this.tippy.length} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                    </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>Width:</label></td>
-                  <td className="input-right"><input name='width' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span></td>
+                  <td className="input-right"><input name='width' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
+                    <Tippy content={this.tippy.width} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                    </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>Height:</label></td>
-                  <td className="input-right"><input name='height' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span></td>
+                  <td className="input-right"><input name='height' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span> 
+                    <Tippy content={this.tippy.height} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                  </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
-                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' onChange={this.handleChangeFrame} required/><span>mm</span></td>
+                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' onChange={this.handleChangeFrame} required/><span>mm</span>
+                    <Tippy content={this.tippy.flpCentres} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                    </td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label>MGW:</label></td>
-                  <td className="input-right"><input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span></td>
+                  <td className="input-left"><label>Maximum Gross Weight (MGW):</label></td>
+                  <td className="input-right"><input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
+                    <Tippy content={this.tippy.weight} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                  </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>Material Grade (SXXX):</label></td>

@@ -83,14 +83,14 @@ class Report extends Component {
 
   emailDocument = async () => {
     const pdf = await this.createPDF()
-    var pdfBase64 = pdf.output('datauristring', {filename: `${this.props.project.docNo} - ${this.props.project.rev}.pdf`});
+    var pdfBlob = pdf.output('blob', {filename: `${this.props.project.docNo} - ${this.props.project.rev}.pdf`});
     const data = {
         from: "Mailgun Sandbox <postmaster@sandboxa24450ce489046949e01cd4586eebfc2.mailgun.org>",
         to: "dnvframedesigner@gmail.com",
         subject: "Hello",
         text: "Testing some Mailgun awesomness!",
-        // attachment: [pdfBase64]
-      };
+        attachment: [pdfBlob]
+    };
     console.log('data :>> ', data);
     mailgun.messages().send(data, function (error, body) {
     console.log(body);
