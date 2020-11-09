@@ -28,26 +28,21 @@ class ProtoFrame{
     }
 
     async getProtoFrame(){
-        let frame = {}
+        let frame = {plateFlp: this.plateFlp}
         if (this.plateFlp) {
-            frame.plateFlp = true
             frame.forkliftPocket = this.getFoldedFlp()
         } else {
-            frame.plateFlp = false
-            await this.getForkLiftPocket().then(data => frame.forkliftPocket = data)
+            frame.forkliftPocket = this.getForkLiftPocket()
         }
-        await this.getTopSideRail().then(data => frame.topSideRail = data)
+        frame.topSideRail = this.getTopSideRail()
+        frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
         if (this.matchEndRail) {
-            frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
-            await this.getBaseSideRail(frame.forkliftPocket[0].y).then(data => frame.baseEndRail = data)
-            await this.getTopSideRail().then(data => frame.topSideRail = data)
-            await this.getTopSideRail().then(data => frame.topEndRail = data)
-            } else {
-                frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
-                await this.getTopSideRail().then(data => frame.topSideRail = data)
-                await this.getBaseEndRail().then(data => frame.baseEndRail = data)
-                await this.getTopEndRail().then(data => frame.topEndRail = data)
-            }
+            frame.topEndRail = this.getTopSideRail()
+            frame.baseEndRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
+        } else {
+            frame.baseEndRail = this.getBaseEndRail()
+            frame.topEndRail = this.getTopEndRail()
+        }
         this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
         await this.getCornerPost().then(data => frame.cornerPost = data)
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
@@ -79,14 +74,13 @@ class ProtoFrame{
         return result
     }
 
-    async fetchMemberForkliftPocket(minI, minZ){
-        return BeamFinder.flpBeams(minI, minZ)
-        // let result = {}
-        // await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
-        // .then(res => res.json())
-        // .then(data => {result = data})
-        // return result
-    }
+    // async fetchMemberForkliftPocket(minI, minZ){
+    //     let result = {}
+    //     await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
+    //     .then(res => res.json())
+    //     .then(data => {result = data})
+    //     return result
+    // }
 
     baseSideRailDuringSlingLiftMinI(){
         return Math.ceil(((981 * this.length**2 * this.mgw)/20992000)/10000)
@@ -148,13 +142,14 @@ class ProtoFrame{
     getBaseEndRail(){
         const minI =  ImpactLoads.minI(this.width, this.mgw)
         const minZ = ImpactLoads.minZ(this.width, this.mgw, this.grade)
-        return this.fetchMemberY(minI, minZ, 'rhs')
+        return BeamFinder.baseEndRailBeams(minI, minZ)
+        // return this.fetchMemberY(minI, minZ, 'rhs')
     }
 
     getForkLiftPocket(){
         const minI = this.pocketLoadSupportingMinI()
         const minZ = this.pocketLoadSupportingMinZ()
-        return this.fetchMemberForkliftPocket(minI, minZ)
+        return BeamFinder.flpBeams(minI, minZ)
     }
 
     checkStressAtFlp(sideRailH, flpH, sideRailT){
@@ -217,13 +212,13 @@ class ProtoFrame{
         const minI = ImpactLoads.minITop(this.length, this.mgw)
         const minZ = ImpactLoads.minZTop(this.length, this.mgw, this.grade)
         const minA = this.topSideRailMinArea()
-        return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
+        return BeamFinder.topSideRailBeams(minI, minZ, minA)
     }
 
     getTopEndRail(){
         const minI = ImpactLoads.minITop(this.width, this.mgw)
         const minZ = ImpactLoads.minZTop(this.width, this.mgw, this.grade)
-        return this.fetchMemberY(minI, minZ, 'shs')
+        return BeamFinder.topEndRailBeams(minI, minZ)
     }
 
 }
