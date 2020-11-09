@@ -49,39 +49,6 @@ class ProtoFrame{
         return frame
     }
 
-    // async fetchMemberY(minI, minZ, desc){
-    //     let result = {}
-    //     await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
-    //     .then(res => res.json())
-    //     .then(data => {result = data})
-    //     return result
-    // }
-
-    // async fetchMember(minIx, minZx, minIy, minZy, minY){
-    //     let result = {}
-    //     console.log("BeamFinder BaseRails", BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY))
-    //     await fetch(`https://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
-    //     .then(res => res.json())
-    //     .then(data => {result = data})
-    //     return result
-    // }
-
-    // async fetchMemberCornerAndTopPost(minI, minZ, desc, csa){
-    //     let result = {}
-    //     await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
-    //     .then(res => res.json())
-    //     .then(data => {result = data})
-    //     return result
-    // }
-
-    // async fetchMemberForkliftPocket(minI, minZ){
-    //     let result = {}
-    //     await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
-    //     .then(res => res.json())
-    //     .then(data => {result = data})
-    //     return result
-    // }
-
     baseSideRailDuringSlingLiftMinI(){
         return Math.ceil(((981 * this.length**2 * this.mgw)/20992000)/10000)
     }
