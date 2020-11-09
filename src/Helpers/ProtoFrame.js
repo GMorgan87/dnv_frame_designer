@@ -27,15 +27,16 @@ class ProtoFrame{
         this.plateFlp = checkboxes.flp
     }
 
-    async getProtoFrame(){
+    getProtoFrame(){
         let frame = {plateFlp: this.plateFlp}
-        if (this.plateFlp) {
+        if (this.plateFlp){
             frame.forkliftPocket = this.getFoldedFlp()
         } else {
             frame.forkliftPocket = this.getForkLiftPocket()
         }
         frame.topSideRail = this.getTopSideRail()
         frame.baseSideRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
+        frame.cornerPost = this.getCornerPost()
         if (this.matchEndRail) {
             frame.topEndRail = this.getTopSideRail()
             frame.baseEndRail = this.getBaseSideRail(frame.forkliftPocket[0].y)
@@ -44,35 +45,34 @@ class ProtoFrame{
             frame.topEndRail = this.getTopEndRail()
         }
         this.checkStressAtFlp(frame.baseSideRail[0].x, frame.forkliftPocket[0].y, frame.baseSideRail[0].thk)
-        await this.getCornerPost().then(data => frame.cornerPost = data)
         frame.padeye = Padeye.getPadeye(this.mgw, this.slingAngle)
         return frame
     }
 
-    async fetchMemberY(minI, minZ, desc){
-        let result = {}
-        await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
-        .then(res => res.json())
-        .then(data => {result = data})
-        return result
-    }
+    // async fetchMemberY(minI, minZ, desc){
+    //     let result = {}
+    //     await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}`)
+    //     .then(res => res.json())
+    //     .then(data => {result = data})
+    //     return result
+    // }
 
-    async fetchMember(minIx, minZx, minIy, minZy, minY){
-        let result = {}
-        console.log("BeamFinder BaseRails", BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY))
-        await fetch(`https://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
-        .then(res => res.json())
-        .then(data => {result = data})
-        return result
-    }
+    // async fetchMember(minIx, minZx, minIy, minZy, minY){
+    //     let result = {}
+    //     console.log("BeamFinder BaseRails", BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY))
+    //     await fetch(`https://resteel.herokuapp.com/sections/rhs/${minIx}/${minZx}/${minIy}/${minZy}/${minY}`)
+    //     .then(res => res.json())
+    //     .then(data => {result = data})
+    //     return result
+    // }
 
-    async fetchMemberCornerAndTopPost(minI, minZ, desc, csa){
-        let result = {}
-        await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
-        .then(res => res.json())
-        .then(data => {result = data})
-        return result
-    }
+    // async fetchMemberCornerAndTopPost(minI, minZ, desc, csa){
+    //     let result = {}
+    //     await fetch(`https://resteel.herokuapp.com/sections/${desc}/${minI}/${minZ}/${csa}`)
+    //     .then(res => res.json())
+    //     .then(data => {result = data})
+    //     return result
+    // }
 
     // async fetchMemberForkliftPocket(minI, minZ){
     //     let result = {}
@@ -136,14 +136,12 @@ class ProtoFrame{
         const minIx = this.getBaseSideRailMinI()
         const minZx = this.getBaseSideRailMinZ()
         return BeamFinder.baseRailBeams(minIx, minZx, minIy, minZy, minY)
-        // return this.fetchMember(minIx, minZx, minIy, minZy, minY)
     }
 
     getBaseEndRail(){
         const minI =  ImpactLoads.minI(this.width, this.mgw)
         const minZ = ImpactLoads.minZ(this.width, this.mgw, this.grade)
         return BeamFinder.baseEndRailBeams(minI, minZ)
-        // return this.fetchMemberY(minI, minZ, 'rhs')
     }
 
     getForkLiftPocket(){
@@ -201,7 +199,7 @@ class ProtoFrame{
         const minI = ImpactLoads.minI(this.height, this.mgw)
         const minZ = ImpactLoads.minZ(this.height, this.mgw, this.grade)
         const minA = this.cornerPostMinArea()
-        return this.fetchMemberCornerAndTopPost(minI, minZ, 'shs', minA)
+        return BeamFinder.cornerPostBeams(minI, minZ, minA)
     }
 
     topSideRailMinArea(){

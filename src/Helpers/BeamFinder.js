@@ -45,6 +45,13 @@ class BeamFinder{
             )
     }
 
+    static cornerPostBeams(minI, minZ, minA){
+        return SHSBeams.filter(beam => 
+            beam.ixx >= minI &&
+            beam.zxx >= minZ &&
+            beam.csa >= minA)
+    }
+
 }
 
 export default BeamFinder

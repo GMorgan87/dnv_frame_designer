@@ -50,22 +50,22 @@ class AppContainer extends Component {
           },function(){
             let protoFrame = new ProtoFrame(this.state.frameDims, this.state.checkboxes)
             console.log('protoframe created: ', protoFrame)
-              protoFrame.getProtoFrame().then(data => {
-              let finalFrame = {
-                baseSideRail: data.baseSideRail[0],
-                baseEndRail: data.baseEndRail[0],
-                forkliftPocket: data.forkliftPocket[0],
-                cornerPost: data.cornerPost[0],
-                topSideRail: data.topSideRail[0],
-                topEndRail: data.topEndRail[0],
-                padeye: data.padeye[0],
-                plateFlp: data.plateFlp
-              } 
-              this.setState({protoFrame: data,
-                                  frame: finalFrame})})
-          }
-          )
-    }
+            const data = protoFrame.getProtoFrame()
+            let finalFrame = {
+              baseSideRail: data.baseSideRail[0],
+              baseEndRail: data.baseEndRail[0],
+              forkliftPocket: data.forkliftPocket[0],
+              cornerPost: data.cornerPost[0],
+              topSideRail: data.topSideRail[0],
+              topEndRail: data.topEndRail[0],
+              padeye: data.padeye[0],
+              plateFlp: data.plateFlp
+            }
+            this.setState({protoFrame: data,
+                                frame: finalFrame})})
+        }
+          
+    
 
     getCalcReport = () => {
       const calculator = new Calculator(this.state.frame, this.state.frameDims)
@@ -88,14 +88,7 @@ class AppContainer extends Component {
     exitReport = () => {
       this.setState({submitted: false})
     }
-
-
-    componentDidMount(){
-      console.log(process.env.REACT_APP_EMAIL_KEY)
-      fetch(`https://resteel.herokuapp.com/sections/rhs/100/100`)
-      .then(res => res.json())
-      .then(data => {console.log("Wake Up")})
-    }
+  
     
   render() {
     return (
