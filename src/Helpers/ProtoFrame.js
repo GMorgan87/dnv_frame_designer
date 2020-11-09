@@ -79,12 +79,13 @@ class ProtoFrame{
         return result
     }
 
-    async fetchMemberForkloftPocket(minI, minZ){
-        let result = {}
-        await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
-        .then(res => res.json())
-        .then(data => {result = data})
-        return result
+    async fetchMemberForkliftPocket(minI, minZ){
+        return BeamFinder.flpBeams(minI, minZ)
+        // let result = {}
+        // await fetch(`https://resteel.herokuapp.com/sections/flp/${minI}/${minZ}`)
+        // .then(res => res.json())
+        // .then(data => {result = data})
+        // return result
     }
 
     baseSideRailDuringSlingLiftMinI(){
@@ -153,7 +154,7 @@ class ProtoFrame{
     getForkLiftPocket(){
         const minI = this.pocketLoadSupportingMinI()
         const minZ = this.pocketLoadSupportingMinZ()
-        return this.fetchMemberForkloftPocket(minI, minZ)
+        return this.fetchMemberForkliftPocket(minI, minZ)
     }
 
     checkStressAtFlp(sideRailH, flpH, sideRailT){
