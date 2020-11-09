@@ -102,7 +102,7 @@ class Report extends Component {
       <div className="report-display">
         <div className="report-header">
           <button className="report-button" onClick={this.saveDocument}>SAVE AS PDF</button>
-          <button className="email-button" onClick={this.emailDocument}>EMAIL PDF</button>
+          {/* <button className="email-button" onClick={this.emailDocument}>EMAIL PDF</button> */}
           <button className="exit-button" onClick={this.props.exitReport}>EXIT</button>
         </div>
       <div className="report" id="capture">
