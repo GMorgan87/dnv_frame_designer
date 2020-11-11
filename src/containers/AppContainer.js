@@ -8,7 +8,6 @@ import Calculator from '../Helpers/Calculator'
 require('dotenv').config()
 
 
-
 class AppContainer extends Component {
 
     constructor(props) {
@@ -32,7 +31,7 @@ class AppContainer extends Component {
          checkboxes: {
           endRail: false,
           cornerPost: false,
-          flp: false
+          flpFolded: false
          },
          submitted: false
       }

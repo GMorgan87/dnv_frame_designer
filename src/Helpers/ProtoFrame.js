@@ -24,7 +24,7 @@ class ProtoFrame{
         this.longForce = Math.round(this.HRsl*Math.cos(this.padeyeAngle))
         this.matchEndRail = checkboxes.endRail
         this.matchCornerPost = checkboxes.cornerPost
-        this.plateFlp = checkboxes.flp
+        this.plateFlp = checkboxes.flpFolded
     }
 
     getProtoFrame(){

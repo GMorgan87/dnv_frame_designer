@@ -31,7 +31,8 @@ class InputForm extends Component {
          checkboxes: {
            endRail: false,
            cornerPost: false,
-           flp: false
+           flpFolded: false,
+           flp: true
          }
       }
       this.handleChangeFrame = this.handleChangeFrame.bind(this);
@@ -181,12 +182,12 @@ class InputForm extends Component {
                   <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label htmlFor="flp">Use folded plate for fork lift pockets</label></td>
-                  <td className="input-right"><input type="checkbox" id="flp" name="flp" value="flp" onChange={this.handleChangeCheckbox}/></td>
+                  <td className="input-left"><label htmlFor="flpFolded">Use folded plate for fork lift pockets</label></td>
+                  <td className="input-right"><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
               </tbody>
             </table>
-              {this.state.checkboxes.flp
+              {this.state.checkboxes.flpFolded
               ?
               <FlpInputs handleChange={this.handleChangeFrame}/>
               :
