@@ -87,12 +87,16 @@ class BeamSelector extends Component {
           <table>
             <tbody>
               {this.baseRails()}
+              {this.props.noFlp?
+              <></>
+              :
               <tr>
                 <td><label>Forklift Pocket: </label></td>
                 <td><select name="forkliftPocket" onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.forkliftPocket)}
                   </select>  </td>
               </tr>
+              }
               <tr>
                 <td><label>Corner Post: </label></td>
                 <td><select name="cornerPost" onChange={this.props.handleBeamChange}>

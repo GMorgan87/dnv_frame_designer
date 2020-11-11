@@ -94,7 +94,7 @@ class AppContainer extends Component {
         <InputForm  handleSubmit={this.handleSubmit}/>
         {(this.state.protoFrame && !this.state.submitted)
         ?
-        <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} getCalcReport={this.getCalcReport} endRail={this.state.checkboxes.endRail}/>
+        <BeamSelector protoFrame={this.state.protoFrame} frame={this.state.frame} handleBeamChange={this.handleBeamChange} getCalcReport={this.getCalcReport} endRail={this.state.checkboxes.endRail} noFlp={this.state.checkboxes.noFlp}/>
         :
         <div></div>
       }

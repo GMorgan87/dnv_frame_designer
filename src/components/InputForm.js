@@ -32,7 +32,7 @@ class InputForm extends Component {
            endRail: false,
            cornerPost: false,
            flpFolded: false,
-           flp: true
+           noFlp: false
          }
       }
       this.handleChangeFrame = this.handleChangeFrame.bind(this);
@@ -147,16 +147,6 @@ class InputForm extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
-                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' onChange={this.handleChangeFrame} required/><span>mm</span>
-                    <Tippy content={this.tippy.flpCentres} placement='right'>
-                      <span>
-                        &#9432;
-                      </span>
-                    </Tippy>
-                    </td>
-                </tr>
-                <tr>
                   <td className="input-left"><label>Maximum Gross Weight (MGW):</label></td>
                   <td className="input-right"><input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
                     <Tippy content={this.tippy.weight} placement='right'>
@@ -178,12 +168,26 @@ class InputForm extends Component {
                   </select></td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label htmlFor="endRail">Match end rails with side rails</label></td>
-                  <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
+                  <td className="input-left"><label htmlFor="noFlp">No Fork LIft Pockets</label></td>
+                  <td className="input-right"><input type="checkbox" id="noFlp" name="noFlp" value="noFlp" onChange={this.handleChangeCheckbox}/></td>
+                </tr>
+                <tr>
+                  <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
+                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeFrame} required/><span>mm</span>
+                    <Tippy content={this.tippy.flpCentres} placement='right'>
+                      <span>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                    </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label htmlFor="flpFolded">Use folded plate for fork lift pockets</label></td>
-                  <td className="input-right"><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" onChange={this.handleChangeCheckbox}/></td>
+                  <td className="input-right"><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/></td>
+                </tr>
+                <tr>
+                  <td className="input-left"><label htmlFor="endRail">Match end rails with side rails</label></td>
+                  <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
               </tbody>
             </table>
