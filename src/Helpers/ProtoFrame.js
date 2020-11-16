@@ -25,6 +25,7 @@ class ProtoFrame{
         this.matchEndRail = checkboxes.endRail
         this.matchCornerPost = checkboxes.cornerPost
         this.plateFlp = checkboxes.flpFolded
+        this.noFlp = checkboxes.noFlp
     }
 
     getProtoFrame(){

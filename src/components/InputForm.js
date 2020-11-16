@@ -73,7 +73,9 @@ class InputForm extends Component {
       height: <p>Max height: 5000mm</p>,
       weight: <p>Max Weight: 25,000kgs</p>,
       flpCentres: <div><p>Min: 900mm</p><p>Max: 2050mm</p></div>,
-      grade: <p></p>
+      grade: <div><p>S355 is the standard for primary steelwork.</p>
+                  <p>S275 or S235 maybe be accepted by DNV in exceptional circumstances</p>
+              </div>
     }
     
   render() {
@@ -158,7 +160,18 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Material Grade (SXXX):</label></td>
-                  <td className="input-right"><input name="grade" type='number' defaultValue='355' onChange={this.handleChangeFrame} required/></td>
+                  <td className="input-right">
+                      <select name="grade" onChange={this.handleChangeFrame}>
+                        <option value='355'>S355</option>
+                        <option value='275'>S275</option>
+                        <option value='235'>S235</option>
+                      </select>
+                      <Tippy content={this.tippy.grade} placement='right'>
+                        <span>
+                          &#9432;
+                        </span>
+                      </Tippy>
+                  </td>
                 </tr>
                 <tr>
                   <td className="input-left"><label>Sling Angle:</label></td>
@@ -167,10 +180,10 @@ class InputForm extends Component {
                     <option value='45'>45</option>
                   </select></td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td className="input-left"><label htmlFor="noFlp">No Fork LIft Pockets</label></td>
                   <td className="input-right"><input type="checkbox" id="noFlp" name="noFlp" value="noFlp" onChange={this.handleChangeCheckbox}/></td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
                   <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeFrame} required/><span>mm</span>
