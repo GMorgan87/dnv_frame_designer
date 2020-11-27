@@ -81,9 +81,8 @@ class BeamSelector extends Component {
     return (
       <div>
         <form onSubmit={this.submit} className="beam-form">
+          <div className="subform">
           <h3>Suggested Design</h3>
-          <div className="user-input">
-
           <table>
             <tbody>
               {this.baseRails()}

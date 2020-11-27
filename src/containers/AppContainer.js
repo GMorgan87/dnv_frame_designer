@@ -89,8 +89,7 @@ class AppContainer extends Component {
     
   render() {
     return (
-      <div>
-        <h2 className="site-header">DNV Frame Designer</h2>
+      <div className="app-container">
         <InputForm  handleSubmit={this.handleSubmit}/>
         {(this.state.protoFrame && !this.state.submitted)
         ?

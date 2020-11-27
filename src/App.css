@@ -2,7 +2,18 @@
   text-align: center;
 }
 
+.site-header {
+  width: 100%;
+  text-align: right;
+  margin: 0;
+  height: 7vh;
+  background: lightgray;
+}
 
+.site-header h2{
+  padding-right: 2vw;
+  padding-top: 3vh;
+}
 
 .App-logo {
   height: 40vmin;

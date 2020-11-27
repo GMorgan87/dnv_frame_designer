@@ -1,5 +1,5 @@
 .inputform {
-    width: 90vw;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -28,7 +28,7 @@
     padding: 0 0.5vw;
     width: 16vw;
     text-align: center
-}
+  }
 
   .calc-button {
     width: 100%;
@@ -63,11 +63,6 @@
 
   .input-table {
     padding: 0
-  }
-
-
-  .rev-input {
-    width: 3vw;
   }
 
   span {

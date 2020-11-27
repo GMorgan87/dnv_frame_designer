@@ -104,7 +104,7 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Revision:</label></td>
-                  <td className="input-right"><input className='rev-input' name='rev' type='text' onChange={this.handleChangeProject} /></td>
+                  <td className="input-right"><input className='title-input' name='rev' type='text' onChange={this.handleChangeProject} /></td>
                 </tr>
                 <tr>
                   <td className="input-left">Email Address:</td>
