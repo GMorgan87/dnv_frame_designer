@@ -149,7 +149,7 @@ class InputForm extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label>Maximum Gross Weight (MGW):</label></td>
+                  <td className="input-left"><label>Max. Gross Weight (MGW):</label></td>
                   <td className="input-right"><input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
                     <Tippy content={this.tippy.weight} placement='right'>
                       <span>
@@ -199,7 +199,7 @@ class InputForm extends Component {
                   <td className="input-right"><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/></td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label htmlFor="endRail">Match end rails with side rails</label></td>
+                  <td className="input-left"><label htmlFor="endRail">Match end and side rails</label></td>
                   <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
               </tbody>

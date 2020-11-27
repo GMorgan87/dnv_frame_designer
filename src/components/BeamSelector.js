@@ -27,22 +27,22 @@ class BeamSelector extends Component {
   baseRails(){
     if (this.props.endRail) {
       return  <tr>
-                <td><label>Base Rails:</label></td>
-                <td><select name="baseSideRail"  onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Base Rails:</label></td>
+                <td className="input-right"><select name="baseSideRail"  onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.baseSideRail)}
                 </select> </td>
               </tr>
     } else {
       return <>
               <tr>
-                <td><label>Base Side Rail:</label></td>
-                <td><select name="baseSideRail"  onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Base Side Rail:</label></td>
+                <td className="input-right"><select name="baseSideRail"  onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.baseSideRail)}
                 </select> </td>
               </tr>
               <tr>
-                <td><label>Base End Rail: </label></td>
-                <td><select name="baseEndRail" onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Base End Rail: </label></td>
+                <td className="input-right"><select name="baseEndRail" onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.baseEndRail)}
                 </select> </td>
               </tr>
@@ -53,8 +53,8 @@ class BeamSelector extends Component {
   topRails(){
     if (this.props.endRail){
       return <tr>
-              <td><label>Top Rails: </label></td>
-              <td><select name="topSideRail" onChange={this.props.handleBeamChange}>
+              <td className="input-left"><label>Top Rails: </label></td>
+              <td className="input-right"><select name="topSideRail" onChange={this.props.handleBeamChange}>
                 {this.getBeamOptions(this.props.protoFrame.topSideRail)}
                 </select>  </td>
             </tr>
@@ -62,14 +62,14 @@ class BeamSelector extends Component {
     } else {
       return <>
                 <tr>
-                  <td><label>Top Side Rail: </label></td>
-                  <td><select name="topSideRail" onChange={this.props.handleBeamChange}>
+                  <td className="input-left"><label>Top Side Rail: </label></td>
+                  <td className="input-right"><select name="topSideRail" onChange={this.props.handleBeamChange}>
                     {this.getBeamOptions(this.props.protoFrame.topSideRail)}
                     </select>  </td>
                 </tr>
                 <tr>
-                  <td><label>Top End Rail: </label></td>
-                  <td><select name="topEndRail" onChange={this.props.handleBeamChange}>
+                  <td className="input-left"><label>Top End Rail: </label></td>
+                  <td className="input-right"><select name="topEndRail" onChange={this.props.handleBeamChange}>
                     {this.getBeamOptions(this.props.protoFrame.topEndRail)}
                     </select>  </td>
                 </tr>
@@ -83,29 +83,29 @@ class BeamSelector extends Component {
         <form onSubmit={this.submit} className="beam-form">
           <div className="subform">
           <h3>Suggested Design</h3>
-          <table>
+          <table className="input-table">
             <tbody>
               {this.baseRails()}
               {this.props.noFlp?
               <></>
               :
               <tr>
-                <td><label>Forklift Pocket: </label></td>
-                <td><select name="forkliftPocket" onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Forklift Pocket: </label></td>
+                <td className="input-right"><select name="forkliftPocket" onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.forkliftPocket)}
                   </select>  </td>
               </tr>
               }
               <tr>
-                <td><label>Corner Post: </label></td>
-                <td><select name="cornerPost" onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Corner Post: </label></td>
+                <td className="input-right"><select name="cornerPost" onChange={this.props.handleBeamChange}>
                   {this.getBeamOptions(this.props.protoFrame.cornerPost)}
                   </select>  </td>
               </tr>
               {this.topRails()}
               <tr>
-                <td><label>Padeye: </label></td>
-                <td><select name="padeye" onChange={this.props.handleBeamChange}>
+                <td className="input-left"><label>Padeye: </label></td>
+                <td className="input-right"><select name="padeye" onChange={this.props.handleBeamChange}>
                 {this.getPadeyeOptions(this.props.protoFrame.padeye)}
                 </select>  </td>
               </tr>
