@@ -120,7 +120,7 @@ class InputForm extends Component {
               <tbody>
                 <tr>
                   <td className="input-left"><label>Length:</label></td>
-                  <td className="input-right"><input name='length' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
+                  <td className="input-right"><input name='length' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.length} placement='right'>
                       <span>
                         &#9432;
@@ -130,7 +130,7 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Width:</label></td>
-                  <td className="input-right"><input name='width' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
+                  <td className="input-right"><input name='width' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.width} placement='right'>
                       <span>
                         &#9432;
@@ -140,7 +140,7 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Height:</label></td>
-                  <td className="input-right"><input name='height' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span> 
+                  <td className="input-right"><input name='height' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span> 
                     <Tippy content={this.tippy.height} placement='right'>
                       <span>
                         &#9432;
@@ -150,7 +150,7 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Max. Gross Weight (MGW):</label></td>
-                  <td className="input-right"><input name='mgw' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
+                  <td className="input-right"><input name='mgw' className='frame-input' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
                     <Tippy content={this.tippy.weight} placement='right'>
                       <span>
                         &#9432;
@@ -161,7 +161,7 @@ class InputForm extends Component {
                 <tr>
                   <td className="input-left"><label>Material Grade (SXXX):</label></td>
                   <td className="input-right">
-                      <select name="grade" onChange={this.handleChangeFrame}>
+                      <select name="grade" className='frame-input' onChange={this.handleChangeFrame}>
                         <option value='355'>S355</option>
                         <option value='275'>S275</option>
                         <option value='235'>S235</option>
@@ -175,9 +175,10 @@ class InputForm extends Component {
                 </tr>
                 <tr>
                   <td className="input-left"><label>Sling Angle:</label></td>
-                  <td className="input-right"><select name='slingAngle' onChange={this.handleChangeFrame}>
-                    <option value='30'>30</option>
-                    <option value='45'>45</option>
+                  <td className="input-right">
+                    <select name='slingAngle' className='frame-input' onChange={this.handleChangeFrame}>
+                      <option value='30'>30</option>
+                      <option value='45'>45</option>
                   </select></td>
                 </tr>
                 {/* <tr>
@@ -186,7 +187,7 @@ class InputForm extends Component {
                 </tr> */}
                 <tr>
                   <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
-                  <td className="input-right"><input name='flpCentres' type='number' min='900' max='2050' disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeFrame} required/><span>mm</span>
+                  <td className="input-right"><input name='flpCentres' className='frame-input' type='number' min='900' max='2050' disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.flpCentres} placement='right'>
                       <span>
                         &#9432;
@@ -194,13 +195,17 @@ class InputForm extends Component {
                     </Tippy>
                     </td>
                 </tr>
+                </tbody>
+                </table>
+                <table>
+                  <tbody>
                 <tr>
-                  <td className="input-left"><label htmlFor="flpFolded">Use folded plate for fork lift pockets</label></td>
-                  <td className="input-right"><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/></td>
+                  <td className="checkbox-label" ><label htmlFor="flpFolded">Use folded plate for fork lift pockets</label></td>
+                  <td ><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/></td>
                 </tr>
                 <tr>
-                  <td className="input-left"><label htmlFor="endRail">Match end and side rails</label></td>
-                  <td className="input-right"><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
+                  <td className="checkbox-label"><label htmlFor="endRail">Match end and side rails</label></td>
+                  <td ><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
                 </tr>
               </tbody>
             </table>

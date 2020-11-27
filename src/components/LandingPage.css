@@ -1,0 +1,21 @@
+.landing-page {
+    width: 80%;
+    margin: 0 auto;
+    padding: 2vh 2vw;
+}
+
+.start-button {
+    width: 100%;
+    margin: 2vh auto;
+    padding: 1vw 0;
+    font-size: 1.25em;
+    border-radius: 1vw;
+    background-color: rgb(0, 255, 0);
+  }
+
+.img-block {
+    height: 300px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: lightblue;
+}

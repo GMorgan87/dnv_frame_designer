@@ -1,6 +1,8 @@
 .inputform {
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .subform {
@@ -8,12 +10,13 @@
     border-radius: 1vw;
     margin: 2vh 0;
     padding: 1vh 2vw 1vh;
+    flex: 1
   }
 
   .input-left {
     text-align: right;
     margin: 0;
-    width: 35%
+    width: 30%
   }
 
   .input-right {
@@ -32,7 +35,7 @@
 
   .calc-button {
     width: 100%;
-    margin: 0 0 4vh 0;
+    margin: 0 0 1vh 0;
     padding: 1vw 0;
     font-size: 1.25em;
     border-radius: 1vw;
@@ -46,16 +49,14 @@
   .frame-input {
     margin: 1vh;
     align-content: center;
+    width: 50%;
   }
 
   .user-input input {
     margin: 0 2vw 0 0.5vw;
   }
 
-  .frame-input input {
-    margin: 0 2vw 0 0.5vw;
-    width: 8vw;
-  }
+  
 
   .title-input {
     width: 90%;
@@ -69,5 +70,8 @@
     margin: 0;
   }
 
+  .checkbox-label {
+    width: 80%;
+  }
 
   
