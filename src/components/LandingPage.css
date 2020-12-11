@@ -19,3 +19,10 @@
     margin: 0 auto;
     background-color: lightblue;
 }
+
+.question {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0;
+}

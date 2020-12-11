@@ -75,7 +75,15 @@ class InputForm extends Component {
       flpCentres: <div><p>Min: 900mm</p><p>Max: 2050mm</p></div>,
       grade: <div><p>S355 is the standard for primary steelwork.</p>
                   <p>S275 or S235 maybe be accepted by DNV in exceptional circumstances</p>
-              </div>
+              </div>,
+      endRails: <div>
+                  <p>Use the same member size for Base Side Rails and Base End Rails</p>
+                  <p>Use the same member size for Top Side Rails and Top End Rails</p>
+                </div>,
+      flp: <div>
+            <p>Use a forklift pocket fabricated from folded plate instead an off the shelf RHS member</p>
+      </div>,
+      sling: <p>Angle of sling leg from vertival</p>
     }
     
   render() {
@@ -83,7 +91,7 @@ class InputForm extends Component {
       <div>
         <form onSubmit = {this.submit} className='inputform'>
           <div className='subform'>
-            <h3>Project Details</h3>
+            <h3 className="form-header">Project Details</h3>
             <table className='input-table'>
               <tbody>
                 <tr>
@@ -106,15 +114,15 @@ class InputForm extends Component {
                   <td className="input-left"><label>Revision:</label></td>
                   <td className="input-right"><input className='title-input' name='rev' type='text' onChange={this.handleChangeProject} /></td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td className="input-left">Email Address:</td>
                   <td className="input-right"><input className='title-input' name='email' type='text' onChange={this.handleChangeProject} /></td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>
           <div className='subform'>
-            <h3>Frame Details</h3>
+            <h3 className="form-header">Frame Details</h3>
             <div className='frame-form'>
             <table className='input-table'>
               <tbody>
@@ -122,7 +130,7 @@ class InputForm extends Component {
                   <td className="input-left"><label>Length:</label></td>
                   <td className="input-right"><input name='length' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.length} placement='right'>
-                      <span>
+                      <span className='info-logo'>
                         &#9432;
                       </span>
                     </Tippy>
@@ -132,7 +140,7 @@ class InputForm extends Component {
                   <td className="input-left"><label>Width:</label></td>
                   <td className="input-right"><input name='width' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.width} placement='right'>
-                      <span>
+                      <span className='info-logo'>
                         &#9432;
                       </span>
                     </Tippy>
@@ -142,7 +150,7 @@ class InputForm extends Component {
                   <td className="input-left"><label>Height:</label></td>
                   <td className="input-right"><input name='height' className='frame-input' type='number' min='0' onChange={this.handleChangeFrame} required/><span>mm</span> 
                     <Tippy content={this.tippy.height} placement='right'>
-                      <span>
+                      <span className='info-logo'>
                         &#9432;
                       </span>
                     </Tippy>
@@ -152,7 +160,7 @@ class InputForm extends Component {
                   <td className="input-left"><label>Max. Gross Weight (MGW):</label></td>
                   <td className="input-right"><input name='mgw' className='frame-input' type='number' min='0' max='25000' onChange={this.handleChangeFrame} required/><span>kg</span>
                     <Tippy content={this.tippy.weight} placement='right'>
-                      <span>
+                      <span className='info-logo'>
                         &#9432;
                       </span>
                     </Tippy>
@@ -167,7 +175,7 @@ class InputForm extends Component {
                         <option value='235'>S235</option>
                       </select>
                       <Tippy content={this.tippy.grade} placement='right'>
-                        <span>
+                        <span className='info-logo'>
                           &#9432;
                         </span>
                       </Tippy>
@@ -179,7 +187,12 @@ class InputForm extends Component {
                     <select name='slingAngle' className='frame-input' onChange={this.handleChangeFrame}>
                       <option value='30'>30</option>
                       <option value='45'>45</option>
-                  </select></td>
+                  </select>
+                  <Tippy content={this.tippy.sling} placement='right'>
+                      <span className='info-logo'>
+                        &#9432;
+                      </span>
+                    </Tippy></td>
                 </tr>
                 {/* <tr>
                   <td className="input-left"><label htmlFor="noFlp">No Fork LIft Pockets</label></td>
@@ -189,7 +202,7 @@ class InputForm extends Component {
                   <td className="input-left"><label>Fork Lift Pocket Centres:</label></td>
                   <td className="input-right"><input name='flpCentres' className='frame-input' type='number' min='900' max='2050' disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeFrame} required/><span>mm</span>
                     <Tippy content={this.tippy.flpCentres} placement='right'>
-                      <span>
+                      <span className='info-logo'>
                         &#9432;
                       </span>
                     </Tippy>
@@ -201,11 +214,23 @@ class InputForm extends Component {
                   <tbody>
                 <tr>
                   <td className="checkbox-label" ><label htmlFor="flpFolded">Use folded plate for fork lift pockets</label></td>
-                  <td ><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/></td>
+                  <td ><input type="checkbox" id="flpFolded" name="flpFolded" value="flpFolded" disabled={this.state.checkboxes.noFlp} onChange={this.handleChangeCheckbox}/>
+                    <Tippy content={this.tippy.flp} placement='right'>
+                      <span className='info-logo'>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                    </td>
                 </tr>
                 <tr>
                   <td className="checkbox-label"><label htmlFor="endRail">Match end and side rails</label></td>
-                  <td ><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/></td>
+                  <td ><input type="checkbox" id="endRail" name="endRail" value="endRail" onChange={this.handleChangeCheckbox}/>
+                  <Tippy content={this.tippy.endRails} placement='right'>
+                      <span className='info-logo'>
+                        &#9432;
+                      </span>
+                    </Tippy>
+                  </td>
                 </tr>
               </tbody>
             </table>

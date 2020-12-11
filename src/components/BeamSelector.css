@@ -5,11 +5,11 @@
     align-content: center;
   }
 
-  h3 {
+  .suggested h3 {
     margin: -2.5vh auto 0;
     background: white;
     padding: 0 0.5vw;
-    width: 17vw;
+    width: 35vw;
     text-align: center
 }
 

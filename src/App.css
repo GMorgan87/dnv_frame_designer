@@ -5,7 +5,7 @@
 .site-header {
   width: 100%;
   text-align: right;
-  margin: 0;
+  margin: 0 0 1vh 0;
   height: 5vh;
   background: lightgray;
 }
@@ -13,7 +13,16 @@
 .site-header h2{
   padding-right: 2vw;
   padding-top: 2vh;
+  font-size: 3vh;
+  text-decoration: none;
 }
+
+.site-header a {
+  text-decoration: none;
+  color: black
+}
+
+
 
 .App-logo {
   height: 40vmin;
@@ -51,6 +60,6 @@
 }
 
 .footer {
-  margin: 0 auto;
+  margin: 1vh auto 0;
   text-align: center;
 }
