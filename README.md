@@ -1,1 +1,1 @@
-https://gmorgan87.github.io/dnv_frame_designer/
+A tool for aiding in the design of offshore lifting frames built to DNV standards. When the user inputs the overall dimensions of the frame and the load carrying requirements, the lightest suitable structural members are selected and calculations are automatically generated.
